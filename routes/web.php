@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\WorkExperienceController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Models\AboutPage;
 use App\Models\KnowledgeItem;
 use App\Models\PersonalProject;
@@ -17,7 +18,7 @@ use App\Models\WorkExperience;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', fn () => Inertia::render('Home'))->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/experiments', fn () => Inertia::render('Experiments/Index', [
     'personalProjects' => PersonalProject::where('is_published', true)->latest()->get(),
