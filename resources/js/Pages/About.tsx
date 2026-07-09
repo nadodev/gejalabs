@@ -48,8 +48,8 @@ export default function About({ about, experiences }: Props) {
           })}
         </div>
 
-        <section className="mt-12 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="panel p-5">
+        <section className="mt-12 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div className="panel h-fit p-5 self-start">
             <div className="flex items-center gap-3">
               <span className="grid size-11 place-items-center border border-primary/40 bg-surface text-primary shadow-neon">
                 <BriefcaseBusiness className="size-5" />
