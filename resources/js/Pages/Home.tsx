@@ -6,11 +6,15 @@ import { ExperimentCard } from "@/components/dashboard/ExperimentCard";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { SystemStatus } from "@/components/dashboard/SystemStatus";
 import { TerminalWindow } from "@/components/terminal/TerminalWindow";
-import { experiments } from "@/data/experiments";
+import type { PersonalProject } from "@/types/admin";
 
 const focus = ["Architecture", "AI", "Backend Systems", "Developer Experience", "Front End", "DevOps", "Observability", "Security"];
 
-export default function Home() {
+interface Props {
+  latestProjects: PersonalProject[];
+}
+
+export default function Home({ latestProjects }: Props) {
   return (
     <AppLayout>
       <Head title="Software Engineering Laboratory" />
@@ -99,9 +103,26 @@ export default function Home() {
               </Link>
             </div>
             <div className="grid gap-4">
-              {experiments.slice(0, 2).map((experiment, index) => (
-                <ExperimentCard key={experiment.id} experiment={experiment} delay={index * 0.1} />
-              ))}
+              {latestProjects.map((project, index) => {
+                const experiment = {
+                  id: String(project.id),
+                  slug: project.slug,
+                  index: `PROJECT #${String(project.id).padStart(3, "0")}`,
+                  title: project.title,
+                  summary: project.summary,
+                  status: project.status,
+                  progress: project.progress,
+                  tech: project.tech ?? [],
+                  overview: project.overview ?? "",
+                  architecture: project.architecture ?? "",
+                  decisions: project.decisions ?? [],
+                  challenges: project.challenges ?? [],
+                  lessons: project.lessons ?? [],
+                  repo: project.repo_url ?? project.live_url ?? "#",
+                };
+
+                return <ExperimentCard key={project.id} experiment={experiment} delay={index * 0.1} />;
+              })}
             </div>
           </div>
 
