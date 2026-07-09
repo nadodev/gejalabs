@@ -21,7 +21,7 @@ function toExperiment(project: PersonalProject) {
   return {
     id: String(project.id),
     slug: project.slug,
-    index: `PROJECT #${String(project.id).padStart(3, "0")}`,
+    index: `PROJECT #${String(project.id).padStart(2, "0")}`,
     title: project.title,
     summary: project.summary,
     status: project.status,
