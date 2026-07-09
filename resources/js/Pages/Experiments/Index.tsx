@@ -77,9 +77,11 @@ export default function ExperimentsIndex({ personalProjects, professionalProject
           <TabButton active={activeTab === "personal"} onClick={() => selectTab("personal")}>
             <FlaskConical className="size-4" /> Projetos pessoais
           </TabButton>
+        {professionalProjects.length > 0 && (
           <TabButton active={activeTab === "professional"} onClick={() => selectTab("professional")}>
-            <BriefcaseBusiness className="size-4" /> Projetos profissionais
+            <BriefcaseBusiness className="size-4" /> Projetos profissionaiss
           </TabButton>
+        )}
         </div>
 
         {activeTab === "professional" ? (
