@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@gejalabs.local')],
+            ['email' => env('ADMIN_EMAIL', 'nadojba@hotmail.com')],
             [
                 'name' => env('ADMIN_NAME', 'Administrador'),
-                'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
+                'password' => Hash::make(env('ADMIN_PASSWORD', 'Nado110391!!')),
             ],
         );
 
