@@ -86,9 +86,9 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
         <meta property="og:image" content="/og-image.svg" />
         <link rel="canonical" href="https://gejalabs.com.br" />
       </Head>
-      <div className="mx-auto max-w-6xl px-5 py-14">
-        <section className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start">
-          <div>
+      <div className="mx-auto max-w-6xl overflow-hidden px-4 py-10 sm:px-5 sm:py-14">
+        <section className="grid min-w-0 gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+          <div className="min-w-0">
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -101,7 +101,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mt-5 font-display text-5xl font-700 leading-none tracking-tight sm:text-7xl"
+              className="mt-5 break-words font-display text-4xl font-700 leading-tight tracking-tight sm:text-6xl md:text-7xl"
             >
               GEJA<span className="text-primary text-glow">LABS</span>
             </motion.h1>
@@ -110,7 +110,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-4 font-display text-xl text-muted-foreground sm:text-2xl"
+              className="mt-4 max-w-xl font-display text-lg text-muted-foreground sm:text-2xl"
             >
               Laboratorio de Engenharia de Software
             </motion.p>
@@ -119,7 +119,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.25 }}
-              className="mt-6 font-mono text-sm text-muted-foreground"
+              className="mt-6 max-w-full font-mono text-sm text-muted-foreground"
             >
               <span className="text-primary">$</span> construindo projetos em:
               <div className="mt-3 flex flex-wrap gap-2">
@@ -135,17 +135,17 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 }}
-              className="mt-8 flex flex-wrap gap-3"
+              className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
             >
               <Link
                 href="/experiments"
-                className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 font-mono text-sm font-600 text-primary-foreground shadow-neon transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 font-mono text-sm font-600 text-primary-foreground shadow-neon transition-transform hover:-translate-y-0.5"
               >
                 <FlaskConical className="size-4" /> Explorar projetos
               </Link>
               <Link
                 href="/knowledge"
-                className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 font-mono text-sm transition-colors hover:border-primary/50 hover:text-primary"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-center font-mono text-sm transition-colors hover:border-primary/50 hover:text-primary"
               >
                 Grafo de conhecimento <ArrowRight className="size-4" />
               </Link>
@@ -155,7 +155,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
           <SystemStatus />
         </section>
 
-        <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="mt-8 grid min-w-0 gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           <MetricCard
             icon={FlaskConical}
             label="Projetos"
@@ -192,9 +192,9 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
           />
         </section>
 
-        <section className="mt-14 grid gap-8 lg:grid-cols-[1fr_1fr]">
-          <div>
-            <div className="mb-4 flex items-center justify-between">
+        <section className="mt-12 grid min-w-0 gap-8 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="min-w-0">
+            <div className="mb-4 flex items-center justify-between gap-4">
               <h2 className="font-display text-2xl font-600">Projetos ativos</h2>
               <Link href="/experiments" className="font-mono text-xs text-primary hover:underline">
                 ver todos -&gt;
@@ -224,7 +224,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
             </div>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h2 className="mb-4 font-display text-2xl font-600">Terminal</h2>
             <TerminalWindow projects={terminalProjects} />
           </div>

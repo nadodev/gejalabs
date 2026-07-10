@@ -14,19 +14,19 @@ export function ExperimentCard({ experiment, delay = 0 }: { experiment: Experime
     >
       <Link
         href={`/experiments/${experiment.slug}`}
-        className="group flex h-full flex-col gap-4 panel p-5 transition-all hover:border-primary/40 hover:shadow-neon"
+        className="group flex h-full min-w-0 flex-col gap-4 panel p-4 transition-all hover:border-primary/40 hover:shadow-neon sm:p-5"
       >
-        <div className="flex items-center justify-between">
-          <span className="inline-flex items-center gap-2 mono-label">
-            <FlaskConical className="size-3.5 text-primary" />
+        <div className="flex min-w-0 items-center justify-between gap-3">
+          <span className="inline-flex min-w-0 items-center gap-2 mono-label">
+            <FlaskConical className="size-3.5 shrink-0 text-primary" />
             {experiment.index}
           </span>
           <StatusBadge status={experiment.status} />
         </div>
 
-        <div>
-          <h3 className="font-display text-xl font-600 tracking-tight">{experiment.title}</h3>
-          <p className="mt-1.5 text-sm text-muted-foreground">{experiment.summary}</p>
+        <div className="min-w-0">
+          <h3 className="break-words font-display text-lg font-600 tracking-tight sm:text-xl">{experiment.title}</h3>
+          <p className="mt-1.5 break-words text-sm text-muted-foreground">{experiment.summary}</p>
         </div>
 
         <div className="mt-auto space-y-3">
@@ -46,7 +46,7 @@ export function ExperimentCard({ experiment, delay = 0 }: { experiment: Experime
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex min-w-0 flex-wrap gap-1.5">
             {experiment.tech.map((tech) => (
               <span
                 key={tech}

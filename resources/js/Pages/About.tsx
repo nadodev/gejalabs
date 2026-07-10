@@ -1,7 +1,7 @@
 import { Head } from "@inertiajs/react";
-import { BookOpen, Boxes, BriefcaseBusiness, Camera, Cpu, Download, Github, Layers, Linkedin, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { BookOpen, Boxes, BriefcaseBusiness, Camera, Cpu, Download, Github, Layers, Linkedin, Sparkles, X } from "lucide-react";
 import { AppLayout } from "@/Layouts/AppLayout";
-import { Timeline } from "@/components/timeline/Timeline";
 import { TerminalWindow } from "@/components/terminal/TerminalWindow";
 import type { AboutBook, AboutCuriosity, AboutGalleryPhoto, AboutPage, PersonalProject, WorkExperience } from "@/types/admin";
 
@@ -23,16 +23,14 @@ const fallbackPrinciples = [
 const icons = [Layers, Cpu, Boxes];
 
 export default function About({ about, experiences, terminalProjects, books, curiosities, galleryPhotos }: Props) {
+  const [selectedPhoto, setSelectedPhoto] = useState<AboutGalleryPhoto | null>(null);
   const principles = about?.principles?.length ? about.principles : fallbackPrinciples;
   const resumeUrl = about?.resume_path ? `/storage/${about.resume_path}` : null;
   const githubUrl = about?.github_url || "https://github.com/gejalabs";
   const linkedinUrl = about?.linkedin_url;
-  const experienceEntries = experiences.map((experience) => ({
-    year: `${formatDate(experience.started_at)} - ${experience.is_current ? "Atual" : formatDate(experience.ended_at)}`,
-    title: `${experience.role} em ${experience.company}`,
-    detail: experience.description,
-    tags: experience.tags ?? [],
-  }));
+  const currentExperience = experiences.find((experience) => experience.is_current);
+  const pastExperiences = experiences.filter((experience) => !experience.is_current);
+  const orderedExperiences = currentExperience ? [currentExperience, ...pastExperiences] : experiences;
 
   return (
     <AppLayout>
@@ -45,8 +43,8 @@ export default function About({ about, experiences, terminalProjects, books, cur
         <link rel="canonical" href="https://gejalabs.com.br/about" />
       </Head>
 
-      <main id="contact" className="mx-auto max-w-6xl px-5 py-14">
-        <section className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+      <main id="contact" className="mx-auto max-w-6xl px-4 py-10 sm:px-5 sm:py-14">
+        <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div>
             <span className="mono-label">{about?.eyebrow ?? "// readme"}</span>
             <h1 className="mt-2 max-w-3xl font-display text-4xl font-700 tracking-tight sm:text-5xl">
@@ -57,30 +55,37 @@ export default function About({ about, experiences, terminalProjects, books, cur
             </p>
           </div>
 
-          <div className="panel p-5">
+          <section className="panel p-5">
             <div className="flex items-center gap-3">
               <span className="grid size-11 place-items-center border border-primary/40 bg-surface text-primary shadow-neon">
                 <BriefcaseBusiness className="size-5" />
               </span>
               <div>
-                <span className="mono-label">career</span>
-                <h2 className="font-display text-2xl font-600">Meu curriculo</h2>
+                <span className="mono-label">perfil</span>
+                <h2 className="font-display text-2xl font-600">Profissional e pessoal</h2>
               </div>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              Uma visao direta da minha experiencia, tecnologias, responsabilidades e evolucao profissional.
+              Um recorte da minha trajetoria tecnica, leituras, curiosidades e registros que ajudam a mostrar quem constroi o laboratorio.
             </p>
-            {resumeUrl ? (
-              <a
-                href={resumeUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-5 inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm font-600 text-primary-foreground shadow-neon"
-              >
-                <Download className="size-4" /> Ver curriculo
-              </a>
-            ) : null}
-          </div>
+            <div className="mt-5 flex flex-wrap gap-3">
+              {resumeUrl ? (
+                <a href={resumeUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-primary px-4 py-2.5 font-mono text-sm font-600 text-primary-foreground shadow-neon">
+                  <Download className="size-4" /> Curriculo
+                </a>
+              ) : null}
+              {githubUrl ? (
+                <a href={githubUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-border bg-surface px-4 py-2.5 font-mono text-sm text-foreground">
+                  <Github className="size-4" /> GitHub
+                </a>
+              ) : null}
+              {linkedinUrl ? (
+                <a href={linkedinUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-border bg-surface px-4 py-2.5 font-mono text-sm text-foreground">
+                  <Linkedin className="size-4" /> LinkedIn
+                </a>
+              ) : null}
+            </div>
+          </section>
         </section>
 
         <section className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -96,103 +101,160 @@ export default function About({ about, experiences, terminalProjects, books, cur
           })}
         </section>
 
-        <section className="mt-14 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div>
-            <SectionTitle eyebrow="trajetoria" title="Timeline profissional" description="Como minha experiencia pratica evoluiu em projetos reais, equipes e responsabilidades tecnicas." />
-            {experiences.length ? (
-              <div className="mt-6">
-                <Timeline entries={experienceEntries} />
-              </div>
-            ) : (
-              <div className="panel mt-6 p-5 text-sm text-muted-foreground">Nenhuma experiencia profissional cadastrada ainda.</div>
-            )}
-          </div>
-
-          <div className="space-y-6">
-            {curiosities.length ? (
-              <section className="panel p-5">
-                <div className="flex items-center gap-3">
-                  <Sparkles className="size-5 text-primary" />
-                  <div>
-                    <span className="mono-label">off topic</span>
-                    <h2 className="font-display text-2xl font-600">Curiosidades</h2>
+        <section className="mt-12">
+          <SectionTitle eyebrow="trajetoria" title="Experiencias" description="As experiencias mais recentes aparecem primeiro, com destaque para a posicao atual." />
+          {orderedExperiences.length ? (
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {orderedExperiences.map((experience, index) => (
+                <article
+                  key={experience.id}
+                  className={`relative overflow-hidden border p-5 shadow-panel ${
+                    experience.is_current ? "border-primary/55 bg-card shadow-neon md:col-span-2" : "border-border bg-card/70"
+                  }`}
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <span className="font-mono text-xs text-primary">
+                        {experience.is_current ? "ATUAL" : `EXPERIENCIA ${String(index + 1).padStart(2, "0")}`}
+                      </span>
+                      <h3 className="mt-2 font-display text-2xl font-600">{experience.company}</h3>
+                      <p className="mt-1 font-mono text-xs text-muted-foreground">{experience.role}</p>
+                    </div>
+                    <span className="border border-border bg-surface px-3 py-1.5 font-mono text-[0.68rem] text-muted-foreground">
+                      {formatDate(experience.started_at)} - {experience.is_current ? "Atual" : formatDate(experience.ended_at)}
+                    </span>
                   </div>
-                </div>
-                <div className="mt-5 space-y-3">
-                  {curiosities.map((curiosity, index) => (
-                    <article key={curiosity.id} className="grid grid-cols-[auto_1fr] gap-4 border border-border bg-surface/45 p-4">
-                      <span className="font-mono text-xs text-primary">{String(index + 1).padStart(2, "0")}</span>
-                      <div>
-                        <h3 className="font-display text-lg font-600">{curiosity.title}</h3>
-                        <p className="mt-1 text-sm text-muted-foreground">{curiosity.description}</p>
+                  <p className="mt-4 text-sm leading-6 text-muted-foreground">{experience.description}</p>
+                  {experience.tags?.length ? (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {experience.tags.map((tag) => (
+                        <span key={tag} className="border border-border bg-surface/70 px-2 py-1 font-mono text-[0.65rem] text-muted-foreground">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="panel mt-6 p-5 text-sm text-muted-foreground">Nenhuma experiencia profissional cadastrada ainda.</div>
+          )}
+        </section>
+
+        {(books.length || galleryPhotos.length) ? (
+          <section className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            {books.length ? (
+              <div>
+                <SectionTitle eyebrow="biblioteca" title="Livros" description="Leituras que formam repertorio tecnico, criativo e pessoal." icon={BookOpen} />
+                <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                  {books.map((book) => (
+                    <article key={book.id} className="group grid grid-cols-[76px_1fr] gap-4 border border-border bg-card/70 p-3 shadow-panel transition-colors hover:border-primary/45">
+                      <div className="overflow-hidden border border-border bg-surface">
+                        {book.image_path ? (
+                          <img src={`/storage/${book.image_path}`} alt={`Capa do livro ${book.title}`} className="h-28 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        ) : (
+                          <div className="grid h-28 place-items-center text-primary">
+                            <BookOpen className="size-5" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="min-w-0">
+                        <span className="font-mono text-[0.68rem] text-primary">{book.author}</span>
+                        <h3 className="mt-1 break-words font-display text-lg font-600">{book.title}</h3>
+                        <p className="mt-1 line-clamp-3 text-sm leading-6 text-muted-foreground">{book.description}</p>
                       </div>
                     </article>
                   ))}
                 </div>
-              </section>
+              </div>
             ) : null}
 
+            {galleryPhotos.length ? (
+              <div>
+                <SectionTitle eyebrow="galeria" title="Fotos" description="Miniaturas menores, com foco na composicao geral. Clique para ver maior." icon={Camera} />
+                <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {galleryPhotos.map((photo, index) => (
+                    <button
+                      key={photo.id}
+                      type="button"
+                      onClick={() => setSelectedPhoto(photo)}
+                      className={`group relative overflow-hidden border border-border bg-card text-left shadow-panel transition-colors hover:border-primary/60 ${
+                        index === 0 ? "sm:col-span-2 sm:row-span-2" : ""
+                      }`}
+                    >
+                      <img
+                        src={`/storage/${photo.image_path}`}
+                        alt={photo.caption || "Foto da galeria"}
+                        className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${index === 0 ? "h-48 sm:h-64" : "h-28 sm:h-32"}`}
+                      />
+                      {photo.caption ? (
+                        <span className="absolute inset-x-0 bottom-0 bg-background/72 px-3 py-2 text-xs text-foreground opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
+                          {photo.caption}
+                        </span>
+                      ) : null}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </section>
+        ) : null}
+
+        <section className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          {curiosities.length ? (
+            <div className="panel p-5">
+              <div className="flex items-center gap-3">
+                <Sparkles className="size-5 text-primary" />
+                <div>
+                  <span className="mono-label">off topic</span>
+                  <h2 className="font-display text-2xl font-600">Curiosidades</h2>
+                </div>
+              </div>
+              <div className="mt-5 space-y-3">
+                {curiosities.map((curiosity, index) => (
+                  <article key={curiosity.id} className="grid grid-cols-[auto_1fr] gap-4 border border-border bg-surface/45 p-4">
+                    <span className="font-mono text-xs text-primary">{String(index + 1).padStart(2, "0")}</span>
+                    <div>
+                      <h3 className="font-display text-lg font-600">{curiosity.title}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">{curiosity.description}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          <div>
             <section className="panel p-5">
               <h2 className="font-display text-2xl font-600">{about?.contact_title ?? "Entre em contato"}</h2>
               <p className="mt-2 text-muted-foreground">
                 {about?.contact_text ?? "O laboratorio esta aberto. Explore os projetos, leia os relatos tecnicos ou entre em contato pelo repositorio."}
               </p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                {githubUrl ? (
-                  <a href={githubUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-primary px-4 py-2.5 font-mono text-sm font-600 text-primary-foreground shadow-neon transition-transform hover:-translate-y-0.5">
-                    <Github className="size-4" /> Visitar GitHub
-                  </a>
-                ) : null}
-                {linkedinUrl ? (
-                  <a href={linkedinUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-border bg-surface px-4 py-2.5 font-mono text-sm font-600 text-foreground transition-transform hover:-translate-y-0.5">
-                    <Linkedin className="size-4" /> Visitar LinkedIn
-                  </a>
-                ) : null}
-              </div>
             </section>
+            <div className="mt-6">
+              <TerminalWindow projects={terminalProjects} />
+            </div>
           </div>
         </section>
-
-        {books.length ? (
-          <section className="mt-16">
-            <SectionTitle eyebrow="biblioteca" title="Livros que li" description="Algumas leituras que ajudam a formar meu repertorio tecnico, criativo e pessoal." icon={BookOpen} />
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {books.map((book) => (
-                <article key={book.id} className="group border border-border bg-card/70 p-3 shadow-panel transition-transform hover:-translate-y-0.5">
-                  {book.image_path ? (
-                    <div className="overflow-hidden border border-border bg-surface">
-                      <img src={`/storage/${book.image_path}`} alt={`Capa do livro ${book.title}`} className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                    </div>
-                  ) : null}
-                  <div className="p-2">
-                    <span className="font-mono text-xs text-primary">{book.author}</span>
-                    <h3 className="mt-2 font-display text-xl font-600">{book.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{book.description}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        ) : null}
-
-        {galleryPhotos.length ? (
-          <section className="mt-16">
-            <SectionTitle eyebrow="galeria" title="Fotos" description="Um pedaco mais visual do laboratorio: registros, lugares, detalhes e bastidores." icon={Camera} />
-            <div className="mt-6 columns-1 gap-4 sm:columns-2 lg:columns-3">
-              {galleryPhotos.map((photo) => (
-                <figure key={photo.id} className="mb-4 break-inside-avoid overflow-hidden border border-border bg-card/70 shadow-panel">
-                  <img src={`/storage/${photo.image_path}`} alt={photo.caption || "Foto da galeria"} className="w-full object-cover" />
-                  {photo.caption ? <figcaption className="border-t border-border bg-surface/60 px-4 py-3 text-sm text-muted-foreground">{photo.caption}</figcaption> : null}
-                </figure>
-              ))}
-            </div>
-          </section>
-        ) : null}
-
-        <section className="mt-16">
-          <TerminalWindow projects={terminalProjects} />
-        </section>
       </main>
+
+      {selectedPhoto ? (
+        <div className="fixed inset-0 z-[70] grid place-items-center bg-background/88 p-4 backdrop-blur-md" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            onClick={() => setSelectedPhoto(null)}
+            aria-label="Fechar foto"
+            className="absolute right-4 top-4 grid size-10 place-items-center border border-border bg-surface text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+          >
+            <X className="size-5" />
+          </button>
+          <figure className="w-full max-w-4xl overflow-hidden border border-border bg-card shadow-panel">
+            <img src={`/storage/${selectedPhoto.image_path}`} alt={selectedPhoto.caption || "Foto da galeria"} className="max-h-[78vh] w-full object-contain bg-background" />
+            {selectedPhoto.caption ? <figcaption className="border-t border-border bg-surface/70 px-4 py-3 text-sm text-muted-foreground">{selectedPhoto.caption}</figcaption> : null}
+          </figure>
+        </div>
+      ) : null}
     </AppLayout>
   );
 }

@@ -31,14 +31,14 @@ export function MetricCard({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="panel p-4 transition-colors hover:border-primary/50"
+      className="panel min-w-0 p-4 transition-colors hover:border-primary/50"
     >
-      <div className="flex items-center justify-between">
-        <span className="mono-label">{label}</span>
-        <Icon className={`size-4 ${color}`} />
+      <div className="flex min-w-0 items-center justify-between gap-3">
+        <span className="mono-label min-w-0 truncate">{label}</span>
+        <Icon className={`size-4 shrink-0 ${color}`} />
       </div>
-      <div className="mt-2 font-display text-2xl font-700">{value}</div>
-      {hint && <div className="mt-0.5 font-mono text-[0.65rem] text-muted-foreground">{hint}</div>}
+      <div className="mt-2 break-words font-display text-2xl font-700">{value}</div>
+      {hint && <div className="mt-0.5 break-words font-mono text-[0.65rem] text-muted-foreground">{hint}</div>}
     </motion.div>
   );
 
@@ -48,14 +48,14 @@ export function MetricCard({
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noreferrer" aria-label={label}>
+      <a href={href} target="_blank" rel="noreferrer" aria-label={label} className="block min-w-0">
         {content}
       </a>
     );
   }
 
   return (
-    <Link href={href} aria-label={label}>
+    <Link href={href} aria-label={label} className="block min-w-0">
       {content}
     </Link>
   );

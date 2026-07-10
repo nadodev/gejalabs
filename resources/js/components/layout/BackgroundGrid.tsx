@@ -42,7 +42,7 @@ export function BackgroundGrid() {
               r={i % 4 === 0 ? 1.8 : 1}
               fill={i % 3 === 0 ? "var(--info)" : "var(--primary)"}
               initial={{ opacity: 0.15 }}
-              animate={{ opacity: [0.1, 0.55, 0.1], cy: [`${y}%`, `${(y + 4) % 100}%`, `${y}%`] }}
+              animate={{ opacity: [0.1, 0.55, 0.1], y: [0, 12, 0] }}
               transition={{ duration: dur, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
             />
           );

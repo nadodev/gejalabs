@@ -159,23 +159,23 @@ export function TerminalWindow({ projects }: TerminalWindowProps) {
   }
 
   return (
-    <div className="panel overflow-hidden">
-      <div className="flex items-center gap-2 border-b border-border bg-surface/60 px-4 py-2.5">
+    <div className="panel w-full min-w-0 max-w-full overflow-hidden">
+      <div className="flex min-w-0 items-center gap-2 border-b border-border bg-surface/60 px-3 py-2.5 sm:px-4">
         <span className="size-2.5 rounded-full bg-destructive/80" />
         <span className="size-2.5 rounded-full bg-warning/80" />
         <span className="size-2.5 rounded-full bg-primary/80" />
-        <span className="ml-2 font-mono text-xs text-muted-foreground">visitante@gejalabs: ~</span>
+        <span className="ml-2 min-w-0 truncate font-mono text-[0.68rem] text-muted-foreground sm:text-xs">visitante@gejalabs: ~</span>
       </div>
 
       <div
         ref={bodyRef}
         onClick={(event) => (event.currentTarget.querySelector("input") as HTMLInputElement)?.focus()}
-        className="h-72 overflow-y-auto p-4 font-mono text-sm leading-relaxed"
+        className="h-64 overflow-y-auto p-3 font-mono text-xs leading-relaxed sm:h-72 sm:p-4 sm:text-sm"
       >
         {lines.map((line, index) => (
-          <div key={`${line.type}-${index}`} className={line.type === "in" ? "text-foreground" : "text-muted-foreground"}>
-            {line.type === "in" ? <span className="text-primary">visitante@gejalabs $ </span> : null}
-            <span className="whitespace-pre-wrap">{line.text}</span>
+          <div key={`${line.type}-${index}`} className={line.type === "in" ? "min-w-0 break-words text-foreground" : "min-w-0 break-words text-muted-foreground"}>
+            {line.type === "in" ? <span className="text-primary">gejalabs $ </span> : null}
+            <span className="whitespace-pre-wrap break-words">{line.text}</span>
           </div>
         ))}
 
@@ -185,17 +185,17 @@ export function TerminalWindow({ projects }: TerminalWindowProps) {
             run(value);
             setValue("");
           }}
-          className="flex flex-col"
+          className="flex min-w-0 flex-col"
         >
-          <div className="flex items-center">
-            <span className="text-primary">visitante@gejalabs $&nbsp;</span>
+          <div className="flex min-w-0 items-center">
+            <span className="shrink-0 text-primary">gejalabs $&nbsp;</span>
             <input
               autoFocus
               value={value}
               onChange={(event) => setValue(event.target.value)}
               onKeyDown={handleKeyDown}
               spellCheck={false}
-              className="flex-1 bg-transparent text-foreground caret-primary outline-none"
+              className="min-w-0 flex-1 bg-transparent text-foreground caret-primary outline-none"
               aria-label="entrada do terminal"
             />
             <span className="caret-blink text-primary">|</span>
