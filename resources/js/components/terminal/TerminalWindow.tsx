@@ -1,8 +1,12 @@
 import { router } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
-import { experiments } from "@/data/experiments";
+import type { PersonalProject } from "@/types/admin";
 
 type Line = { type: "in" | "out"; text: string };
+
+type TerminalWindowProps = {
+  projects?: Pick<PersonalProject, "slug" | "title">[] | null;
+};
 
 const HELP = [
   "available commands:",
@@ -13,20 +17,37 @@ const HELP = [
   "  clear             clear the terminal",
 ];
 
-const boot: Line[] = [
-  { type: "out", text: "gejalabs shell v2.0.26 - type 'help' to begin" },
-  { type: "in", text: "ls experiments" },
-  { type: "out", text: experiments.map((experiment) => experiment.slug).join("   ") },
-];
+function getProjectSlugs(projects?: Pick<PersonalProject, "slug" | "title">[] | null): string[] {
+  return (projects ?? []).map((project) => project.slug).filter(Boolean);
+}
 
-export function TerminalWindow() {
-  const [lines, setLines] = useState<Line[]>(boot);
+function buildBootLines(projects?: Pick<PersonalProject, "slug" | "title">[] | null): Line[] {
+  const slugs = getProjectSlugs(projects);
+
+  return [
+    { type: "out", text: "gejalabs shell v2.0.26 - type 'help' to begin" },
+    { type: "in", text: "ls experiments" },
+    { type: "out", text: slugs.length ? slugs.join("   ") : "no published experiments" },
+  ];
+}
+
+export function TerminalWindow({ projects }: TerminalWindowProps) {
+  const [lines, setLines] = useState<Line[]>(() => buildBootLines(projects));
   const [value, setValue] = useState("");
   const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setLines(buildBootLines(projects));
+  }, [projects]);
+
+  useEffect(() => {
     bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight });
   }, [lines]);
+
+  const whoami = `
+    Meu nome é Leonardo Geja, sou desenvolvedor de software a mais de 3 anos, atualmente trabalho na
+    Unoesc - Universidade do Oeste de Santa Catarina, tenho 35 anos.
+  `;
 
   function run(raw: string) {
     const cmd = raw.trim();
@@ -41,15 +62,16 @@ export function TerminalWindow() {
     } else if (base === "help") {
       HELP.forEach((text) => next.push({ type: "out", text }));
     } else if (base === "whoami") {
-      next.push({ type: "out", text: "visitor@gejalabs - a software engineering laboratory." });
+      next.push({ type: "out", text: whoami });
     } else if (base === "ls") {
-      next.push({ type: "out", text: experiments.map((experiment) => experiment.slug).join("   ") });
+      const slugs = getProjectSlugs(projects);
+      next.push({ type: "out", text: slugs.length ? slugs.join("   ") : "no published experiments" });
     } else if (base === "open") {
-      const experiment = experiments.find((item) => item.slug === arg);
-      if (experiment) {
-        next.push({ type: "out", text: `opening ${experiment.slug}...` });
+      const project = (projects ?? []).find((item) => item.slug === arg);
+      if (project) {
+        next.push({ type: "out", text: `opening ${project.slug}...` });
         setLines(next);
-        setTimeout(() => router.visit(`/experiments/${experiment.slug}`), 400);
+        setTimeout(() => router.visit(`/experiments/${project.slug}`), 400);
         return;
       }
       next.push({ type: "out", text: `open: '${arg ?? ""}' not found` });

@@ -87,9 +87,14 @@ class HomePageTest extends TestCase
 
         $response->assertOk();
         $response->assertInertia(fn (AssertableInertia $page) => $page
-            ->has('latestProjects', 3)
+            ->has('latestProjects', 2)
             ->where('latestProjects.0.title', 'Newest project')
-            ->where('latestProjects.2.title', 'Older project')
+            ->where('latestProjects.1.title', 'Another project')
+            ->has('terminalProjects', 3)
+            ->where('terminalProjects.0.title', 'Newest project')
+            ->where('terminalProjects.2.title', 'Older project')
+            ->where('terminalProjects.0.slug', 'newest-project')
+            ->where('terminalProjects.2.slug', 'older-project')
         );
     }
 }

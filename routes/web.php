@@ -39,6 +39,7 @@ Route::get('/knowledge', fn () => Inertia::render('Knowledge', [
 Route::get('/about', fn () => Inertia::render('About', [
     'about' => AboutPage::first(),
     'experiences' => WorkExperience::orderByDesc('is_current')->orderByDesc('started_at')->get(),
+    'terminalProjects' => PersonalProject::where('is_published', true)->latest()->get(),
 ]))->name('about');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 

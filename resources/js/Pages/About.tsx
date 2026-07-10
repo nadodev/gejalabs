@@ -2,11 +2,12 @@
 import { Boxes, BriefcaseBusiness, Cpu, Download, Github, Layers, Linkedin } from "lucide-react";
 import { AppLayout } from "@/Layouts/AppLayout";
 import { TerminalWindow } from "@/components/terminal/TerminalWindow";
-import type { AboutPage, WorkExperience } from "@/types/admin";
+import type { AboutPage, PersonalProject, WorkExperience } from "@/types/admin";
 
 interface Props {
   about: AboutPage | null;
   experiences: WorkExperience[];
+  terminalProjects: Pick<PersonalProject, "slug" | "title">[];
 }
 
 const fallbackPrinciples = [
@@ -17,7 +18,7 @@ const fallbackPrinciples = [
 
 const icons = [Layers, Cpu, Boxes];
 
-export default function About({ about, experiences }: Props) {
+export default function About({ about, experiences, terminalProjects }: Props) {
   const principles = about?.principles?.length ? about.principles : fallbackPrinciples;
   const resumeUrl = about?.resume_path ? `/storage/${about.resume_path}` : null;
   const githubUrl = about?.github_url || "https://github.com/gejalabs";
@@ -148,7 +149,7 @@ export default function About({ about, experiences }: Props) {
              }
             </div>
           </div>
-          <TerminalWindow />
+          <TerminalWindow projects={terminalProjects} />
         </div>
       </div>
     </AppLayout>

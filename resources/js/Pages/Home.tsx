@@ -12,9 +12,10 @@ const focus = ["Architecture", "AI", "Backend Systems", "Developer Experience", 
 
 interface Props {
   latestProjects: PersonalProject[];
+  terminalProjects: Pick<PersonalProject, "slug" | "title">[];
 }
 
-export default function Home({ latestProjects }: Props) {
+export default function Home({ latestProjects, terminalProjects }: Props) {
   return (
     <AppLayout>
       <Head>
@@ -141,7 +142,7 @@ export default function Home({ latestProjects }: Props) {
 
           <div>
             <h2 className="mb-4 font-display text-2xl font-600">Terminal</h2>
-            <TerminalWindow />
+            <TerminalWindow projects={terminalProjects} />
           </div>
         </section>
       </div>
