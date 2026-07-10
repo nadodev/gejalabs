@@ -61,10 +61,10 @@ export default function BlogShow({ post, contentHtml }: Props) {
           ) : null}
         </header>
 
-        <div className="mt-8 overflow-hidden border border-primary/20 bg-background shadow-[0_0_32px_-18px_var(--primary)]">
+        <div className="mt-8 overflow-hidden border border-primary/25 bg-background shadow-[0_0_28px_-16px_var(--primary)]">
           {cover ? (
             <div className="relative">
-              <img src={cover} alt="" className="aspect-[16/8] w-full object-cover" />
+              <img src={cover} alt="" className="h-56 w-full object-cover object-center sm:h-64 lg:h-72" />
               <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-primary/20" />
             </div>
           ) : (
@@ -77,7 +77,7 @@ export default function BlogShow({ post, contentHtml }: Props) {
           )}
         </div>
 
-        <div className="mt-8 border border-border/70 bg-card/55 p-5 shadow-[0_18px_60px_-42px_var(--primary)] backdrop-blur-sm sm:p-8">
+        <div className="mt-8 border border-border/60 bg-card/45 p-5 shadow-panel backdrop-blur-sm sm:p-8">
           <div className="markdown-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
         </div>
       </article>
