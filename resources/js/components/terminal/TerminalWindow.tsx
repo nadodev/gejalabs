@@ -26,7 +26,7 @@ function buildBootLines(projects?: Pick<PersonalProject, "slug" | "title">[] | n
 
   return [
     { type: "out", text: "gejalabs shell v2.0.26 - type 'help' to begin" },
-    { type: "in", text: "ls experiments" },
+    { type: "in", text: "whoami" },
     { type: "out", text: slugs.length ? slugs.join("   ") : "no published experiments" },
   ];
 }
