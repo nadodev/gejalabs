@@ -1,5 +1,5 @@
 import { Head, Link } from "@inertiajs/react";
-import { CalendarDays, PenLine, Tag } from "lucide-react";
+import { ArrowRight, CalendarDays, PenLine, Tag } from "lucide-react";
 import { AppLayout } from "@/Layouts/AppLayout";
 import type { BlogPost } from "@/types/admin";
 
@@ -39,17 +39,24 @@ export default function BlogIndex({ posts }: Props) {
         </p>
 
         {posts.length ? (
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <div className="mt-10 grid gap-4">
             {posts.map((post) => (
-              <Link key={post.id} href={`/blog/${post.slug}`} className="panel group overflow-hidden transition-colors hover:border-primary/40">
-                {coverUrl(post) ? (
-                  <img src={coverUrl(post) ?? ""} alt="" className="aspect-[16/8] w-full object-cover" />
-                ) : (
-                  <div className="grid aspect-[16/8] place-items-center bg-surface text-primary">
-                    <PenLine className="size-8" />
-                  </div>
-                )}
-                <div className="p-5">
+              <Link
+                key={post.id}
+                href={`/blog/${post.slug}`}
+                className="group grid overflow-hidden border border-border bg-card/70 transition-colors hover:border-primary/40 sm:grid-cols-[220px_1fr]"
+              >
+                <div className="relative min-h-36 bg-surface">
+                  {coverUrl(post) ? (
+                    <img src={coverUrl(post) ?? ""} alt="" className="h-full min-h-36 w-full object-cover object-center" />
+                  ) : (
+                    <div className="grid h-full min-h-36 place-items-center text-primary">
+                      <PenLine className="size-7" />
+                    </div>
+                  )}
+                  <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-primary/10 transition-colors group-hover:ring-primary/25" />
+                </div>
+                <div className="flex min-w-0 flex-col p-4 sm:p-5">
                   <div className="flex flex-wrap items-center gap-3 font-mono text-[0.65rem] text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
                       <CalendarDays className="size-3.5 text-primary" />
@@ -57,20 +64,24 @@ export default function BlogIndex({ posts }: Props) {
                     </span>
                     <span>{post.author}</span>
                   </div>
-                  <h2 className="mt-3 font-display text-2xl font-600 tracking-tight transition-colors group-hover:text-primary">
+                  <h2 className="mt-2 font-display text-xl font-600 tracking-tight transition-colors group-hover:text-primary sm:text-2xl">
                     {post.title}
                   </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{post.description}</p>
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{post.description}</p>
                   {post.tags?.length ? (
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {post.tags.map((tag) => (
-                        <span key={tag} className="inline-flex items-center gap-1 border border-border bg-surface px-2 py-1 font-mono text-[0.65rem] text-muted-foreground">
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {post.tags.slice(0, 4).map((tag) => (
+                        <span key={tag} className="inline-flex items-center gap-1 border border-border bg-surface/70 px-2 py-0.5 font-mono text-[0.62rem] text-muted-foreground">
                           <Tag className="size-3" />
                           {tag}
                         </span>
                       ))}
                     </div>
                   ) : null}
+                  <div className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-primary">
+                    ler artigo
+                    <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+                  </div>
                 </div>
               </Link>
             ))}
