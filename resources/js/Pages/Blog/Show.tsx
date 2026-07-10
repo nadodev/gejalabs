@@ -22,8 +22,7 @@ export default function BlogShow({ post, contentHtml }: Props) {
 
   return (
     <AppLayout>
-      <Head>
-        <title>{post.title} | GejaLabs</title>
+      <Head title={`${post.title} | GejaLabs`}>
         <meta name="description" content={post.description} />
         <meta property="og:title" content={`${post.title} | GejaLabs`} />
         <meta property="og:description" content={post.description} />
