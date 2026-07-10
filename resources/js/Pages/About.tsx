@@ -152,7 +152,7 @@ export default function About({ about, books, curiosities, galleryPhotos }: Prop
                           onClick={() => setSelectedBook(book)}
                           className="mt-3 border border-border bg-surface px-3 py-2 font-mono text-[0.68rem] text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
                         >
-                          ver descricao
+                          ver mais
                         </button>
                       </div>
                     </article>
