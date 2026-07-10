@@ -4,9 +4,9 @@ import { motion } from "motion/react";
 
 const services = [
   { label: "API", state: "ONLINE", color: "text-primary", dot: "bg-primary" },
-  { label: "DATABASE", state: "CONNECTED", color: "text-primary", dot: "bg-primary" },
-  { label: "AI MODULE", state: "READY", color: "text-info", dot: "bg-info" },
-  { label: "QUEUE", state: "IDLE", color: "text-warning", dot: "bg-warning" },
+  { label: "DATABASE", state: "CONECTADO", color: "text-primary", dot: "bg-primary" },
+  { label: "MODULO IA", state: "PRONTO", color: "text-info", dot: "bg-info" },
+  { label: "FILA", state: "OCIOSA", color: "text-warning", dot: "bg-warning" },
 ] as const;
 
 export function SystemStatus() {
@@ -18,7 +18,7 @@ export function SystemStatus() {
       className="panel p-5 shadow-neon"
     >
       <div className="flex items-center justify-between">
-        <span className="mono-label">System Status</span>
+        <span className="mono-label">Status do sistema</span>
         <span className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] text-primary">
           <span className="size-1.5 rounded-full bg-primary pulse-dot" /> LIVE
         </span>
@@ -37,7 +37,7 @@ export function SystemStatus() {
       </ul>
 
       <div className="mt-4 border-t border-border pt-3 font-mono text-xs text-muted-foreground">
-        LAST DEPLOY: <span className="text-foreground">2 hours ago</span>
+        ULTIMO DEPLOY: <span className="text-foreground">ha 2 horas</span>
       </div>
     </motion.div>
   );

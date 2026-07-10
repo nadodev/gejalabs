@@ -8,18 +8,18 @@ export function Footer() {
           GEJA<span className="text-primary">LABS</span>
         </div>
         <p className="font-mono text-xs text-muted-foreground">
-          <span className="text-primary">$</span> systems operational - built in the lab ©{" "}
+          <span className="text-primary">$</span> sistemas operacionais - construido no laboratorio &copy;{" "}
           {new Date().getFullYear()}
         </p>
         <div className="flex gap-4 font-mono text-xs text-muted-foreground">
           <Link href="/experiments" className="hover:text-foreground">
-            Projects
+            Projetos
           </Link>
           <Link href="/knowledge" className="hover:text-foreground">
-            Knowledge
+            Conhecimento
           </Link>
           <Link href="/about" className="hover:text-foreground">
-            about
+            sobre
           </Link>
         </div>
       </div>

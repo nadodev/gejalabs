@@ -1,4 +1,4 @@
-﻿import { Link } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import { BookOpenText, BriefcaseBusiness, ClipboardList, FlaskConical, RadioTower, UserRound } from "lucide-react";
 import { AdminLayout } from "@/Layouts/AdminLayout";
 import type { Task } from "@/types/admin";
@@ -17,32 +17,32 @@ interface DashboardProps {
 
 const modules = [
   {
-    title: "Personal projects",
-    description: "Projects created by you, with links, repositories, architecture notes and learnings.",
+    title: "Projetos pessoais",
+    description: "Projetos criados por voce, com links, repositorios, notas de arquitetura e aprendizados.",
     href: "/admin/personal-projects",
     icon: FlaskConical,
   },
   {
-    title: "Professional projects",
-    description: "Company experience without exposing source code, private data or internal credentials.",
+    title: "Projetos profissionais",
+    description: "Experiencias em empresas sem expor codigo-fonte, dados privados ou credenciais internas.",
     href: "/admin/professional-projects",
     icon: BriefcaseBusiness,
   },
   {
-    title: "About page",
-    description: "Intro, principles, resume upload and the professional timeline shown on the public About page.",
+    title: "Pagina sobre",
+    description: "Introducao, principios, curriculo e timeline profissional exibidos na pagina publica Sobre.",
     href: "/admin/about",
     icon: UserRound,
   },
   {
-    title: "Knowledge",
-    description: "Managed knowledge graph nodes and the evolution timeline shown on the public Knowledge page.",
+    title: "Conhecimento",
+    description: "Nos do grafo de conhecimento e timeline de evolucao exibidos na pagina publica Conhecimento.",
     href: "/admin/knowledge",
     icon: BookOpenText,
   },
   {
-    title: "Tasks",
-    description: "Internal technical tasks and notes for the lab. Visible only inside this admin area for now.",
+    title: "Tarefas",
+    description: "Tarefas tecnicas internas e notas do laboratorio. Visiveis apenas nesta area administrativa por enquanto.",
     href: "/admin/tasks",
     icon: ClipboardList,
   },
@@ -50,14 +50,14 @@ const modules = [
 
 export default function Dashboard({ metrics, recentTasks }: DashboardProps) {
   return (
-    <AdminLayout title="Dashboard" eyebrow="// control room">
+    <AdminLayout title="Painel" eyebrow="// sala de controle">
       <div className="grid gap-6 xl:grid-cols-[1.55fr_0.85fr]">
         <section>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <Metric label="Personal" value={metrics.personalProjects} />
-            <Metric label="Professional" value={metrics.professionalProjects} />
-            <Metric label="Knowledge" value={metrics.knowledgeItems} />
-            <Metric label="Tasks" value={metrics.tasks} hint={`${metrics.openTasks} open`} />
+            <Metric label="Pessoais" value={metrics.personalProjects} />
+            <Metric label="Profissionais" value={metrics.professionalProjects} />
+            <Metric label="Conhecimento" value={metrics.knowledgeItems} />
+            <Metric label="Tarefas" value={metrics.tasks} hint={`${metrics.openTasks} abertas`} />
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -68,10 +68,10 @@ export default function Dashboard({ metrics, recentTasks }: DashboardProps) {
                     <module.icon className="size-5" />
                   </span>
                   <div>
-                    <div className="mono-label">module</div>
+                    <div className="mono-label">modulo</div>
                     <h2 className="mt-1 font-display text-xl font-600">{module.title}</h2>
                     <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{module.description}</p>
-                    <div className="mt-4 font-mono text-xs text-primary">manage -&gt;</div>
+                    <div className="mt-4 font-mono text-xs text-primary">gerenciar -&gt;</div>
                   </div>
                 </div>
               </Link>
@@ -82,22 +82,22 @@ export default function Dashboard({ metrics, recentTasks }: DashboardProps) {
         <aside className="space-y-4">
           <div className="panel p-5">
             <div className="flex items-center justify-between">
-              <span className="mono-label">site status</span>
+              <span className="mono-label">status do site</span>
               <RadioTower className="size-4 text-primary" />
             </div>
             <div className="mt-4 space-y-3 font-mono text-sm">
               <StatusLine label="Laravel" value="online" />
-              <StatusLine label="Inertia" value="ready" />
-              <StatusLine label="About" value={metrics.aboutConfigured ? "managed" : "pending"} />
-              <StatusLine label="Admin" value="protected" />
+              <StatusLine label="Inertia" value="pronto" />
+              <StatusLine label="Sobre" value={metrics.aboutConfigured ? "gerenciado" : "pendente"} />
+              <StatusLine label="Admin" value="protegido" />
             </div>
           </div>
 
           <div className="panel p-5">
             <div className="flex items-center justify-between">
-              <span className="mono-label">recent tasks</span>
+              <span className="mono-label">tarefas recentes</span>
               <Link href="/admin/tasks" className="font-mono text-xs text-primary hover:underline">
-                open
+                abrir
               </Link>
             </div>
             <div className="mt-4 space-y-3">
@@ -112,7 +112,7 @@ export default function Dashboard({ metrics, recentTasks }: DashboardProps) {
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-muted-foreground">No internal tasks yet.</p>
+                <p className="text-sm text-muted-foreground">Nenhuma tarefa interna ainda.</p>
               )}
             </div>
           </div>

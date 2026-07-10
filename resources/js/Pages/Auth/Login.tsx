@@ -30,10 +30,10 @@ export default function Login() {
           <section className="panel p-6 shadow-neon">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <span className="mono-label">// admin access</span>
+                <span className="mono-label">// acesso admin</span>
                 <h1 className="mt-2 font-display text-3xl font-700 tracking-tight">Entrar no painel</h1>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Acesse a área administrativa para gerenciar conteúdo, projetos e informações do site.
+                  Acesse a area administrativa para gerenciar conteudo, projetos e informacoes do site.
                 </p>
               </div>
               <div className="grid size-10 shrink-0 place-items-center border border-border bg-surface text-primary">

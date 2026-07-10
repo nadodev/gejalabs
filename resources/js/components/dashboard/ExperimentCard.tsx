@@ -32,7 +32,7 @@ export function ExperimentCard({ experiment, delay = 0 }: { experiment: Experime
         <div className="mt-auto space-y-3">
           <div>
             <div className="mb-1 flex justify-between font-mono text-[0.65rem] text-muted-foreground">
-              <span>PROGRESS</span>
+              <span>PROGRESSO</span>
               <span className="text-primary">{experiment.progress}%</span>
             </div>
             <div className="h-1.5 overflow-hidden rounded-full bg-surface">
@@ -58,7 +58,7 @@ export function ExperimentCard({ experiment, delay = 0 }: { experiment: Experime
           </div>
 
           <div className="flex items-center gap-1.5 pt-1 font-mono text-xs text-primary">
-            View experiment
+            Ver projeto
             <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
           </div>
         </div>

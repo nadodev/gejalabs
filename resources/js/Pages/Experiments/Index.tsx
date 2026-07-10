@@ -21,7 +21,7 @@ function toExperiment(project: PersonalProject) {
   return {
     id: String(project.id),
     slug: project.slug,
-    index: `PROJECT #${String(project.id).padStart(2, "0")}`,
+    index: `PROJETO #${String(project.id).padStart(2, "0")}`,
     title: project.title,
     summary: project.summary,
     status: project.status,
@@ -50,16 +50,16 @@ export default function ExperimentsIndex({ personalProjects, professionalProject
   const copy = useMemo(
     () => ({
       personal: {
-        eyebrow: "// personal projects",
-        title: "Personal projects",
+        eyebrow: "// projetos pessoais",
+        title: "Projetos pessoais",
         description:
-          "In this section, I present projects developed on my own initiative, focused on learning, practice, portfolio building, and technical growth. Here, I share repositories, architecture decisions, implemented features, and complete technical details.",
+          "Nesta secao, apresento projetos desenvolvidos por iniciativa propria, com foco em aprendizado, pratica, portfolio e crescimento tecnico. Aqui compartilho repositorios, decisoes de arquitetura, funcionalidades implementadas e detalhes tecnicos.",
       },
       professional: {
-        eyebrow: "// professional projects",
-        title: "Professional projects",
+        eyebrow: "// projetos profissionais",
+        title: "Projetos profissionais",
         description:
-          "In this section, I present projects in which I have worked professionally as a developer, contributing to features, maintenance, integrations, performance improvements, and technical evolution.",
+          "Nesta secao, apresento projetos em que atuei profissionalmente como desenvolvedor, contribuindo com funcionalidades, manutencao, integracoes, melhorias de performance e evolucao tecnica.",
       },
     }),
     [],
@@ -68,13 +68,13 @@ export default function ExperimentsIndex({ personalProjects, professionalProject
   return (
     <AppLayout>
       <Head>
-        <title>Experiments | GejaLabs</title>
+        <title>Projetos | GejaLabs</title>
         <meta
           name="description"
-          content="Browse personal and professional experiments from GejaLabs, including architecture, AI, backend systems and engineering practice."
+          content="Navegue por projetos pessoais e profissionais do GejaLabs, incluindo arquitetura, IA, backend e pratica de engenharia."
         />
-        <meta property="og:title" content="Experiments | GejaLabs" />
-        <meta property="og:description" content="A portfolio of practical engineering experiments and case studies from GejaLabs." />
+        <meta property="og:title" content="Projetos | GejaLabs" />
+        <meta property="og:description" content="Um portfolio de projetos praticos de engenharia e estudos de caso do GejaLabs." />
         <meta property="og:image" content="/og-image.svg" />
         <link rel="canonical" href="https://gejalabs.com.br/experiments" />
       </Head>
@@ -87,11 +87,11 @@ export default function ExperimentsIndex({ personalProjects, professionalProject
           <TabButton active={activeTab === "personal"} onClick={() => selectTab("personal")}>
             <FlaskConical className="size-4" /> Projetos pessoais
           </TabButton>
-        {professionalProjects.length > 0 && (
-          <TabButton active={activeTab === "professional"} onClick={() => selectTab("professional")}>
-            <BriefcaseBusiness className="size-4" /> Projetos profissionaiss
-          </TabButton>
-        )}
+          {professionalProjects.length > 0 && (
+            <TabButton active={activeTab === "professional"} onClick={() => selectTab("professional")}>
+              <BriefcaseBusiness className="size-4" /> Projetos profissionais
+            </TabButton>
+          )}
         </div>
 
         {activeTab === "professional" ? (
@@ -99,8 +99,7 @@ export default function ExperimentsIndex({ personalProjects, professionalProject
             <div className="mt-8 flex gap-3 border border-border bg-surface/40 p-4">
               <ShieldCheck className="mt-0.5 size-5 shrink-0 text-primary" />
               <p className="text-sm leading-relaxed text-muted-foreground">
-               As these projects were developed in a corporate environment, source code, internal data, credentials, private administrative screens, and sensitive infrastructure details are not disclosed.
-
+                Como estes projetos foram desenvolvidos em ambiente corporativo, codigo-fonte, dados internos, credenciais, telas administrativas privadas e detalhes sensiveis de infraestrutura nao sao divulgados.
               </p>
             </div>
             <div className="mt-8 grid gap-5">
@@ -147,13 +146,13 @@ function ProfessionalProjectCard({ project }: { project: ProfessionalProject }) 
         <div className="border border-border bg-surface/60 px-2.5 py-1 font-mono text-[0.65rem] text-primary">{project.period}</div>
       </div>
       <div className="grid gap-3 border-y border-border py-4 text-sm sm:grid-cols-2">
-        <div><div className="mono-label">Role</div><p className="mt-1 text-foreground">{project.role}</p></div>
-        <div><div className="mono-label">Modules</div><p className="mt-1 text-muted-foreground">{project.modules?.join(" · ")}</p></div>
+        <div><div className="mono-label">Papel</div><p className="mt-1 text-foreground">{project.role}</p></div>
+        <div><div className="mono-label">Modulos</div><p className="mt-1 text-muted-foreground">{project.modules?.join(" / ")}</p></div>
       </div>
       <div className="grid gap-4 md:grid-cols-3">
-        <ListBlock title="Contributions" items={project.contributions ?? []} />
-        <ListBlock title="Challenges" items={project.challenges ?? []} />
-        <ListBlock title="Lessons" items={project.lessons ?? []} />
+        <ListBlock title="Contribuicoes" items={project.contributions ?? []} />
+        <ListBlock title="Desafios" items={project.challenges ?? []} />
+        <ListBlock title="Aprendizados" items={project.lessons ?? []} />
       </div>
     </article>
   );

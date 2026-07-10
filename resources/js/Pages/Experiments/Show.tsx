@@ -19,7 +19,7 @@ export default function ExperimentShow({ project }: Props) {
 
         <header className="mt-4 panel p-6 shadow-neon">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <span className="mono-label">PROJECT #{String(project.id).padStart(3, "0")} · PROJECT REPORT</span>
+            <span className="mono-label">PROJETO #{String(project.id).padStart(3, "0")} / RELATORIO TECNICO</span>
             <StatusBadge status={project.status} />
           </div>
           <h1 className="mt-3 font-display text-3xl font-700 tracking-tight sm:text-4xl">{project.title}</h1>
@@ -27,7 +27,7 @@ export default function ExperimentShow({ project }: Props) {
           <div className="mt-5 flex flex-wrap items-center gap-4">
             <div className="min-w-40 flex-1">
               <div className="mb-1 flex justify-between font-mono text-[0.65rem] text-muted-foreground">
-                <span>PROGRESS</span>
+                <span>PROGRESSO</span>
                 <span className="text-primary">{project.progress}%</span>
               </div>
               <div className="h-1.5 overflow-hidden bg-surface">
@@ -36,17 +36,17 @@ export default function ExperimentShow({ project }: Props) {
             </div>
             {project.repo_url ? (
               <a href={project.repo_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-border bg-surface px-3 py-2 font-mono text-xs transition-colors hover:border-primary/50 hover:text-primary">
-                <Github className="size-4" /> Repository <ExternalLink className="size-3" />
+                <Github className="size-4" /> Repositorio <ExternalLink className="size-3" />
               </a>
             ) : null}
           </div>
         </header>
 
         <div className="mt-6 grid gap-5">
-          <Section title="Overview">{project.overview}</Section>
-          <Section title="Architecture">{project.architecture}</Section>
+          <Section title="Visao geral">{project.overview}</Section>
+          <Section title="Arquitetura">{project.architecture}</Section>
           <div className="panel p-5">
-            <h2 className="mono-label text-primary">Technology Stack</h2>
+            <h2 className="mono-label text-primary">Stack tecnica</h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {project.tech?.map((tech) => (
                 <span key={tech} className="border border-border bg-surface/60 px-2.5 py-1 font-mono text-xs">{tech}</span>
@@ -54,10 +54,10 @@ export default function ExperimentShow({ project }: Props) {
             </div>
           </div>
           <div className="grid gap-5 md:grid-cols-2">
-            <Section title="Decisions"><List items={project.decisions ?? []} /></Section>
-            <Section title="Challenges"><List items={project.challenges ?? []} /></Section>
+            <Section title="Decisoes"><List items={project.decisions ?? []} /></Section>
+            <Section title="Desafios"><List items={project.challenges ?? []} /></Section>
           </div>
-          <Section title="Lessons Learned"><List items={project.lessons ?? []} /></Section>
+          <Section title="Aprendizados"><List items={project.lessons ?? []} /></Section>
         </div>
       </div>
     </AppLayout>

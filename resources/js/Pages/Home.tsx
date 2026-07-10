@@ -9,7 +9,7 @@ import { SystemStatus } from "@/components/dashboard/SystemStatus";
 import { TerminalWindow } from "@/components/terminal/TerminalWindow";
 import type { PersonalProject } from "@/types/admin";
 
-const focus = ["Architecture", "AI", "Backend Systems", "Developer Experience", "Front End", "DevOps", "Observability", "Security"];
+const focus = ["Arquitetura", "IA", "Backend", "Experiencia do desenvolvedor", "Front End", "DevOps", "Observabilidade", "Seguranca"];
 
 interface Props {
   latestProjects: PersonalProject[];
@@ -51,7 +51,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Could not load GitHub profile");
+          throw new Error("Nao foi possivel carregar o perfil do GitHub");
         }
 
         return response.json() as Promise<GitHubProfile>;
@@ -73,15 +73,15 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
   return (
     <AppLayout>
       <Head>
-        <title>GejaLabs | Software Engineering Laboratory</title>
+        <title>GejaLabs | Laboratorio de Engenharia de Software</title>
         <meta
           name="description"
-          content="GejaLabs is a software engineering portfolio showcasing architecture experiments, AI systems, backend solutions and developer experience work."
+          content="GejaLabs e um portfolio de engenharia de software com projetos de arquitetura, IA, backend e experiencia do desenvolvedor."
         />
-        <meta property="og:title" content="GejaLabs | Software Engineering Laboratory" />
+        <meta property="og:title" content="GejaLabs | Laboratorio de Engenharia de Software" />
         <meta
           property="og:description"
-          content="Explore practical experiments in architecture, AI, backend systems and developer experience from GejaLabs."
+          content="Explore projetos praticos de arquitetura, IA, backend e experiencia do desenvolvedor no GejaLabs."
         />
         <meta property="og:image" content="/og-image.svg" />
         <link rel="canonical" href="https://gejalabs.com.br" />
@@ -94,7 +94,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
               animate={{ opacity: 1 }}
               className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1 mono-label"
             >
-              <span className="size-1.5 rounded-full bg-primary pulse-dot" /> Laboratory active
+              <span className="size-1.5 rounded-full bg-primary pulse-dot" /> Laboratorio ativo
             </motion.span>
 
             <motion.h1
@@ -112,7 +112,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-4 font-display text-xl text-muted-foreground sm:text-2xl"
             >
-              Software Engineering Laboratory
+              Laboratorio de Engenharia de Software
             </motion.p>
 
             <motion.div
@@ -121,7 +121,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
               transition={{ delay: 0.25 }}
               className="mt-6 font-mono text-sm text-muted-foreground"
             >
-              <span className="text-primary">$</span> building experiments in:
+              <span className="text-primary">$</span> construindo projetos em:
               <div className="mt-3 flex flex-wrap gap-2">
                 {focus.map((item) => (
                   <span key={item} className="rounded border border-border bg-surface/60 px-2.5 py-1 text-foreground">
@@ -141,13 +141,13 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
                 href="/experiments"
                 className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 font-mono text-sm font-600 text-primary-foreground shadow-neon transition-transform hover:-translate-y-0.5"
               >
-                <FlaskConical className="size-4" /> Explore experiments
+                <FlaskConical className="size-4" /> Explorar projetos
               </Link>
               <Link
                 href="/knowledge"
                 className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 font-mono text-sm transition-colors hover:border-primary/50 hover:text-primary"
               >
-                Knowledge graph <ArrowRight className="size-4" />
+                Grafo de conhecimento <ArrowRight className="size-4" />
               </Link>
             </motion.div>
           </div>
@@ -158,33 +158,33 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
         <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <MetricCard
             icon={FlaskConical}
-            label="Projects"
+            label="Projetos"
             value={formatNumber(metrics.projects.total)}
-            hint={`${metrics.projects.stable} stable / ${metrics.projects.running} running`}
+            hint={`${metrics.projects.stable} estaveis / ${metrics.projects.running} em andamento`}
             href="/experiments"
           />
           <MetricCard
             icon={BriefcaseBusiness}
-            label="Experience"
+            label="Experiencia"
             value={`${metrics.experience.years}+`}
-            hint={`since ${metrics.experience.since}`}
+            hint={`desde ${metrics.experience.since}`}
             accent="info"
             delay={0.05}
             href="/about"
           />
           <MetricCard
             icon={BookOpenText}
-            label="Knowledge"
+            label="Conhecimento"
             value={formatNumber(metrics.knowledge.nodes)}
-            hint={`${metrics.knowledge.timeline} timeline entries`}
+            hint={`${metrics.knowledge.timeline} itens na timeline`}
             delay={0.1}
             href="/knowledge"
           />
           <MetricCard
             icon={Github}
-            label="Repositories"
+            label="Repositorios"
             value={publicRepositories}
-            hint="public on GitHub"
+            hint="publicos no GitHub"
             accent="warning"
             delay={0.15}
             href="https://github.com/nadodev"
@@ -195,9 +195,9 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
         <section className="mt-14 grid gap-8 lg:grid-cols-[1fr_1fr]">
           <div>
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="font-display text-2xl font-600">Active experiments</h2>
+              <h2 className="font-display text-2xl font-600">Projetos ativos</h2>
               <Link href="/experiments" className="font-mono text-xs text-primary hover:underline">
-                view all -&gt;
+                ver todos -&gt;
               </Link>
             </div>
             <div className="grid gap-4">

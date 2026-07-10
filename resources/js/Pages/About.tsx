@@ -12,9 +12,9 @@ interface Props {
 }
 
 const fallbackPrinciples = [
-  { title: "Architecture first", detail: "Boundaries and contracts before frameworks. Design decisions are documented, not implied." },
-  { title: "AI as a tool", detail: "Grounded, evaluated and traceable: intelligence that serves the system, not the hype." },
-  { title: "Continuous evolution", detail: "Every experiment feeds the next. Lessons compound; nothing is thrown away." },
+  { title: "Arquitetura primeiro", detail: "Limites e contratos antes de frameworks. Decisoes de design sao documentadas, nao presumidas." },
+  { title: "IA como ferramenta", detail: "Fundamentada, avaliada e rastreavel: inteligencia que serve ao sistema, nao ao hype." },
+  { title: "Evolucao continua", detail: "Cada projeto alimenta o proximo. Aprendizados se acumulam; nada e desperdicado." },
 ];
 
 const icons = [Layers, Cpu, Boxes];
@@ -25,8 +25,8 @@ export default function About({ about, experiences, terminalProjects }: Props) {
   const githubUrl = about?.github_url || "https://github.com/gejalabs";
   const linkedinUrl = about?.linkedin_url;
   const experienceEntries = experiences.map((experience) => ({
-    year: `${formatDate(experience.started_at)} - ${experience.is_current ? "Current" : formatDate(experience.ended_at)}`,
-    title: `${experience.role} at ${experience.company}`,
+    year: `${formatDate(experience.started_at)} - ${experience.is_current ? "Atual" : formatDate(experience.ended_at)}`,
+    title: `${experience.role} em ${experience.company}`,
     detail: experience.description,
     tags: experience.tags ?? [],
   }));
@@ -34,23 +34,23 @@ export default function About({ about, experiences, terminalProjects }: Props) {
   return (
     <AppLayout>
       <Head>
-        <title>About GejaLabs | Software Engineering Portfolio</title>
+        <title>Sobre GejaLabs | Portfolio de Engenharia de Software</title>
         <meta
           name="description"
-          content="Learn about GejaLabs, the software engineering portfolio focused on architecture, AI, backend systems and long-term experiments."
+          content="Conheca o GejaLabs, portfolio de engenharia de software focado em arquitetura, IA, backend e projetos de longo prazo."
         />
-        <meta property="og:title" content="About GejaLabs | Software Engineering Portfolio" />
-        <meta property="og:description" content="Discover the mission, principles and career journey behind GejaLabs." />
+        <meta property="og:title" content="Sobre GejaLabs | Portfolio de Engenharia de Software" />
+        <meta property="og:description" content="Conheca a missao, os principios e a trajetoria profissional por tras do GejaLabs." />
         <meta property="og:image" content="/og-image.svg" />
         <link rel="canonical" href="https://gejalabs.com.br/about" />
       </Head>
       <div id="contact" className="mx-auto max-w-5xl px-5 py-14">
         <span className="mono-label">{about?.eyebrow ?? "// readme"}</span>
         <h1 className="mt-2 font-display text-4xl font-700 tracking-tight sm:text-5xl">
-          {about?.title ?? "About the lab"}
+          {about?.title ?? "Sobre o laboratorio"}
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          {about?.intro ?? "GejaLabs is a personal software engineering laboratory: a place to run experiments in architecture, artificial intelligence, backend systems and developer experience."}
+          {about?.intro ?? "GejaLabs e um laboratorio pessoal de engenharia de software: um lugar para desenvolver projetos em arquitetura, inteligencia artificial, backend e experiencia do desenvolvedor."}
         </p>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -74,11 +74,11 @@ export default function About({ about, experiences, terminalProjects }: Props) {
               </span>
               <div>
                 <span className="mono-label">career</span>
-                <h2 className="font-display text-2xl font-600">My Resume</h2>
+                <h2 className="font-display text-2xl font-600">Meu curriculo</h2>
               </div>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              View my resume for a complete overview of my experience, skills, technologies, and career journey.
+              Veja meu curriculo para uma visao completa da minha experiencia, habilidades, tecnologias e trajetoria profissional.
             </p>
             {resumeUrl ? (
               <a
@@ -87,7 +87,7 @@ export default function About({ about, experiences, terminalProjects }: Props) {
                 rel="noreferrer"
                 className="mt-5 inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm font-600 text-primary-foreground shadow-neon"
               >
-                <Download className="size-4" /> View resume
+                <Download className="size-4" /> Ver curriculo
               </a>
             ) : null}
           </div>
@@ -95,23 +95,23 @@ export default function About({ about, experiences, terminalProjects }: Props) {
           <div>
             {experiences.length ? (
               <>
-                <h2 className="font-display text-2xl font-600">Professional timeline</h2>
+                <h2 className="font-display text-2xl font-600">Timeline profissional</h2>
                 <p className="mt-2 mb-6 text-sm text-muted-foreground">
-                  How my practical experience has evolved through real projects, teams, and technical responsibilities.
+                  Como minha experiencia pratica evoluiu em projetos reais, equipes e responsabilidades tecnicas.
                 </p>
                 <Timeline entries={experienceEntries} />
               </>
             ) : (
-              <div className="panel p-5 text-sm text-muted-foreground">No work experiences registered yet.</div>
+              <div className="panel p-5 text-sm text-muted-foreground">Nenhuma experiencia profissional cadastrada ainda.</div>
             )}
           </div>
         </section>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
           <div>
-            <h2 className="font-display text-2xl font-600">{about?.contact_title ?? "Get in touch"}</h2>
+            <h2 className="font-display text-2xl font-600">{about?.contact_title ?? "Entre em contato"}</h2>
             <p className="mt-2 text-muted-foreground">
-              {about?.contact_text ?? "The lab is open. Explore the experiments, read the reports, or reach out through the repository."}
+              {about?.contact_text ?? "O laboratorio esta aberto. Explore os projetos, leia os relatos tecnicos ou entre em contato pelo repositorio."}
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
              {
@@ -122,7 +122,7 @@ export default function About({ about, experiences, terminalProjects }: Props) {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 bg-primary px-4 py-2.5 font-mono text-sm font-600 text-primary-foreground shadow-neon transition-transform hover:-translate-y-0.5"
               >
-                <Github className="size-4" /> Visit GitHub
+                <Github className="size-4" /> Visitar GitHub
               </a>
               ): null
              }
@@ -134,7 +134,7 @@ export default function About({ about, experiences, terminalProjects }: Props) {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 bg-primary px-4 py-2.5 font-mono text-sm font-600 text-primary-foreground shadow-neon transition-transform hover:-translate-y-0.5"
                 >
-                  <Linkedin className="size-4" /> Visit LinkedIn
+                  <Linkedin className="size-4" /> Visitar LinkedIn
                 </a>
               ) : null
              }
@@ -148,6 +148,6 @@ export default function About({ about, experiences, terminalProjects }: Props) {
 }
 
 function formatDate(value: string | null) {
-  if (!value) return "Present";
-  return new Intl.DateTimeFormat("en", { month: "short", year: "numeric" }).format(new Date(value));
+  if (!value) return "Atual";
+  return new Intl.DateTimeFormat("pt-BR", { month: "short", year: "numeric" }).format(new Date(value));
 }

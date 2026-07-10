@@ -18,7 +18,7 @@ interface Node {
 }
 
 const fallbackNodes: Node[] = [
-  { id: "arch", label: "Architecture", x: 50, y: 50, accent: "primary" },
+  { id: "arch", label: "Arquitetura", x: 50, y: 50, accent: "primary" },
   { id: "laravel", label: "Laravel", x: 50, y: 14, accent: "info" },
   { id: "ddd", label: "DDD", x: 16, y: 34, accent: "primary" },
   { id: "postgres", label: "PostgreSQL", x: 84, y: 34, accent: "info" },

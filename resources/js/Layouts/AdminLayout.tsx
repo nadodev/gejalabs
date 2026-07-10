@@ -13,12 +13,12 @@ import type { ReactNode } from "react";
 import type { SharedPageProps } from "@/types/page";
 
 const nav = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/personal-projects", label: "Personal projects", icon: FlaskConical },
-  { href: "/admin/professional-projects", label: "Professional projects", icon: BriefcaseBusiness },
-  { href: "/admin/about", label: "About", icon: UserRound },
-  { href: "/admin/knowledge", label: "Knowledge", icon: BookOpenText },
-  { href: "/admin/tasks", label: "Tasks", icon: ListTodo },
+  { href: "/admin", label: "Painel", icon: LayoutDashboard },
+  { href: "/admin/personal-projects", label: "Projetos pessoais", icon: FlaskConical },
+  { href: "/admin/professional-projects", label: "Projetos profissionais", icon: BriefcaseBusiness },
+  { href: "/admin/about", label: "Sobre", icon: UserRound },
+  { href: "/admin/knowledge", label: "Conhecimento", icon: BookOpenText },
+  { href: "/admin/tasks", label: "Tarefas", icon: ListTodo },
 ];
 
 export function AdminLayout({
@@ -83,7 +83,7 @@ export function AdminLayout({
                   href="/"
                   className="hidden border border-border bg-surface px-3 py-2 font-mono text-xs text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary sm:inline-flex"
                 >
-                  view site
+                  ver site
                 </Link>
                 <div className="hidden text-right sm:block">
                   <div className="font-mono text-xs text-foreground">{auth.user?.name}</div>
@@ -93,7 +93,7 @@ export function AdminLayout({
                   type="button"
                   onClick={logout}
                   className="grid size-9 place-items-center border border-border bg-surface text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
-                  aria-label="Logout"
+                  aria-label="Sair"
                 >
                   <LogOut className="size-4" />
                 </button>

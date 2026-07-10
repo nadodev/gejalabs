@@ -21,10 +21,10 @@ declare global {
 }
 
 const links = [
-  { to: "/", label: "HOME", match: (url: string) => url === "/" },
-  { to: "/about", label: "ABOUT", match: (url: string) => url.startsWith("/about") },
-  { to: "/experiments", label: "PROJECTS", match: (url: string) => url.startsWith("/experiments") },
-  { to: "/knowledge", label: "KNOWLEDGE", match: (url: string) => url.startsWith("/knowledge") },
+  { to: "/", label: "INICIO", match: (url: string) => url === "/" },
+  { to: "/about", label: "SOBRE", match: (url: string) => url.startsWith("/about") },
+  { to: "/experiments", label: "PROJETOS", match: (url: string) => url.startsWith("/experiments") },
+  { to: "/knowledge", label: "CONHECIMENTO", match: (url: string) => url.startsWith("/knowledge") },
 ] as const;
 
 const googleTranslateElementId = "google_translate_element";
@@ -40,12 +40,12 @@ function getCurrentGoogleTranslateLanguage(): "pt" | "en" {
     .find((item) => item.startsWith("googtrans="))
     ?.split("=")[1];
 
-  return cookie?.endsWith("/pt") ? "pt" : "en";
+  return cookie?.endsWith("/en") ? "en" : "pt";
 }
 
 function setGoogleTranslateCookie(language: "pt" | "en") {
-  const value = language === "en" ? "" : `/en/${language}`;
-  const expires = language === "en" ? "Thu, 01 Jan 1970 00:00:00 GMT" : "";
+  const value = language === "pt" ? "" : `/pt/${language}`;
+  const expires = language === "pt" ? "Thu, 01 Jan 1970 00:00:00 GMT" : "";
   const hostParts = window.location.hostname.split(".");
   const domains = [window.location.hostname];
 
@@ -62,8 +62,6 @@ function setGoogleTranslateCookie(language: "pt" | "en") {
 
 function protectTechnicalLabels() {
   const selectors = [
-    "header",
-    ".mono-label",
     ".notranslate",
     "[data-no-translate]",
     "code",
@@ -86,7 +84,7 @@ export function Navbar() {
     const currentLanguage = getCurrentGoogleTranslateLanguage();
     setSelectedLanguage(currentLanguage);
 
-    if (currentLanguage === "pt") {
+    if (currentLanguage === "en") {
       protectTechnicalLabels();
     }
 
@@ -99,7 +97,7 @@ export function Navbar() {
         {
           autoDisplay: false,
           includedLanguages: "pt,en",
-          pageLanguage: "en",
+          pageLanguage: "pt",
         },
         googleTranslateElementId,
       );
@@ -122,7 +120,7 @@ export function Navbar() {
     setSelectedLanguage(language);
     setGoogleTranslateCookie(language);
 
-    if (language === "en") {
+    if (language === "pt") {
       window.location.reload();
       return;
     }
@@ -139,7 +137,7 @@ export function Navbar() {
       return;
     }
 
-    translateSelect.value = language === "en" ? "" : language;
+    translateSelect.value = language === "pt" ? "" : language;
     translateSelect.dispatchEvent(new Event("change"));
   }
 
@@ -164,8 +162,7 @@ export function Navbar() {
                 <li key={link.to}>
                   <Link
                     href={link.to}
-                    translate="no"
-                    className={`notranslate px-2.5 py-2 font-mono text-[0.65rem] tracking-widest transition-colors hover:bg-surface hover:text-foreground xl:px-3 ${
+                    className={`px-2.5 py-2 font-mono text-[0.65rem] tracking-widest transition-colors hover:bg-surface hover:text-foreground xl:px-3 ${
                       isActive ? "text-primary" : "text-muted-foreground"
                     }`}
                   >
@@ -183,7 +180,7 @@ export function Navbar() {
               className={`rounded-full px-2.5 py-1 text-[0.65rem] font-mono tracking-widest transition-colors hover:bg-background hover:text-foreground ${
                 selectedLanguage === "pt" ? "bg-background text-primary" : "text-muted-foreground"
               }`}
-              aria-label="Traduzir para portugues"
+              aria-label="Usar portugues"
             >
               PT
             </button>
@@ -193,7 +190,7 @@ export function Navbar() {
               className={`rounded-full px-2.5 py-1 text-[0.65rem] font-mono tracking-widest transition-colors hover:bg-background hover:text-foreground ${
                 selectedLanguage === "en" ? "bg-background text-primary" : "text-muted-foreground"
               }`}
-              aria-label="Translate to English"
+              aria-label="Traduzir para ingles"
             >
               EN
             </button>

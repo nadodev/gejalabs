@@ -2,10 +2,10 @@ import type { ExperimentStatus } from "@/data/experiments";
 import { cn } from "@/lib/utils";
 
 const config: Record<ExperimentStatus, { label: string; color: string; text: string }> = {
-  running: { label: "RUNNING", color: "bg-primary", text: "text-primary" },
-  stable: { label: "STABLE", color: "bg-info", text: "text-info" },
-  planned: { label: "PLANNED", color: "bg-warning", text: "text-warning" },
-  failed: { label: "FAILED", color: "bg-destructive", text: "text-destructive" },
+  running: { label: "EM ANDAMENTO", color: "bg-primary", text: "text-primary" },
+  stable: { label: "ESTAVEL", color: "bg-info", text: "text-info" },
+  planned: { label: "PLANEJADO", color: "bg-warning", text: "text-warning" },
+  failed: { label: "FALHOU", color: "bg-destructive", text: "text-destructive" },
 };
 
 export function StatusBadge({ status }: { status: ExperimentStatus }) {

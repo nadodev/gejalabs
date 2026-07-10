@@ -9,18 +9,18 @@ type TerminalWindowProps = {
   projects?: Pick<PersonalProject, "slug" | "title">[] | null;
 };
 
-
-  const whoami = `My name is Leonardo Geja. I am a software developer with over three years of experience, currently working at Unoesc — the University of Western Santa Catarina. I am 35 years old and focused on building reliable, maintainable, and well-structured software solutions.`;
+const whoami =
+  "Meu nome e Leonardo Geja. Sou desenvolvedor de software com mais de tres anos de experiencia, atualmente trabalhando na Unoesc, a Universidade do Oeste de Santa Catarina. Tenho 35 anos e foco em construir solucoes de software confiaveis, manuteniveis e bem estruturadas.";
 
 const HELP = [
-  "available commands:",
-  "  help              show this message",
-  "  ls experiments    list all experiments",
-  "  whoami            about the Geja",
-  "  cd <slug>         open an experiment",
-  "  resume            download the curriculum vitae",
-  "  clear             clear the terminal",
-  "  ctrl+l            clear screen",
+  "comandos disponiveis:",
+  "  help              mostra esta mensagem",
+  "  ls experiments    lista todos os projetos",
+  "  whoami            sobre Leonardo Geja",
+  "  cd <slug>         abre um projeto",
+  "  resume            baixa o curriculo",
+  "  clear             limpa o terminal",
+  "  ctrl+l            limpa a tela",
 ];
 
 const COMMAND_SUGGESTIONS = ["help", "whoami", "resume", "clear", "ls experiments", "cd <slug>"];
@@ -82,10 +82,8 @@ function completeInput(value: string, projects?: Pick<PersonalProject, "slug" | 
 }
 
 function buildBootLines(projects?: Pick<PersonalProject, "slug" | "title">[] | null): Line[] {
-  const slugs = getProjectSlugs(projects);
-
   return [
-    { type: "out", text: "gejalabs shell v2.0.26 - type 'help' to begin" },
+    { type: "out", text: "gejalabs shell v2.0.26 - digite 'help' para comecar" },
     { type: "in", text: "whoami" },
     { type: "out", text: whoami },
   ];
@@ -104,7 +102,6 @@ export function TerminalWindow({ projects }: TerminalWindowProps) {
   useEffect(() => {
     bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight });
   }, [lines]);
-
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "l") {
@@ -138,25 +135,25 @@ export function TerminalWindow({ projects }: TerminalWindowProps) {
     } else if (base === "whoami") {
       next.push({ type: "out", text: whoami });
     } else if (base === "resume") {
-      next.push({ type: "out", text: "downloading resume..." });
+      next.push({ type: "out", text: "baixando curriculo..." });
       setLines(next);
       const resumeUrl = "https://gejalabs.com.br/storage/resumes/qknsHHDVKZjw4k43BZtqJvYkg1aqwhvc9WhgwvNN.pdf";
       window.open(resumeUrl, "_blank", "noopener,noreferrer");
       return;
     } else if (base === "ls") {
       const slugs = getProjectSlugs(projects);
-      next.push({ type: "out", text: slugs.length ? slugs.join("   ") : "no published experiments" });
+      next.push({ type: "out", text: slugs.length ? slugs.join("   ") : "nenhum projeto publicado" });
     } else if (base === "cd") {
       const project = (projects ?? []).find((item) => item.slug === arg);
       if (project) {
-        next.push({ type: "out", text: `changing to ${project.slug}...` });
+        next.push({ type: "out", text: `abrindo ${project.slug}...` });
         setLines(next);
         setTimeout(() => router.visit(`/experiments/${project.slug}`), 400);
         return;
       }
-      next.push({ type: "out", text: `cd: '${arg ?? ""}' not found` });
+      next.push({ type: "out", text: `cd: '${arg ?? ""}' nao encontrado` });
     } else {
-      next.push({ type: "out", text: `command not found: ${base}. try 'help'` });
+      next.push({ type: "out", text: `comando nao encontrado: ${base}. tente 'help'` });
     }
     setLines(next);
   }
@@ -167,7 +164,7 @@ export function TerminalWindow({ projects }: TerminalWindowProps) {
         <span className="size-2.5 rounded-full bg-destructive/80" />
         <span className="size-2.5 rounded-full bg-warning/80" />
         <span className="size-2.5 rounded-full bg-primary/80" />
-        <span className="ml-2 font-mono text-xs text-muted-foreground">visitor@gejalabs: ~</span>
+        <span className="ml-2 font-mono text-xs text-muted-foreground">visitante@gejalabs: ~</span>
       </div>
 
       <div
@@ -177,7 +174,7 @@ export function TerminalWindow({ projects }: TerminalWindowProps) {
       >
         {lines.map((line, index) => (
           <div key={`${line.type}-${index}`} className={line.type === "in" ? "text-foreground" : "text-muted-foreground"}>
-            {line.type === "in" ? <span className="text-primary">visitor@gejalabs $ </span> : null}
+            {line.type === "in" ? <span className="text-primary">visitante@gejalabs $ </span> : null}
             <span className="whitespace-pre-wrap">{line.text}</span>
           </div>
         ))}
@@ -191,7 +188,7 @@ export function TerminalWindow({ projects }: TerminalWindowProps) {
           className="flex flex-col"
         >
           <div className="flex items-center">
-            <span className="text-primary">visitor@gejalabs $&nbsp;</span>
+            <span className="text-primary">visitante@gejalabs $&nbsp;</span>
             <input
               autoFocus
               value={value}
@@ -199,9 +196,9 @@ export function TerminalWindow({ projects }: TerminalWindowProps) {
               onKeyDown={handleKeyDown}
               spellCheck={false}
               className="flex-1 bg-transparent text-foreground caret-primary outline-none"
-              aria-label="terminal input"
+              aria-label="entrada do terminal"
             />
-            <span className="caret-blink text-primary">▊</span>
+            <span className="caret-blink text-primary">|</span>
           </div>
 
           {value === "/" || value.startsWith("/") ? (
