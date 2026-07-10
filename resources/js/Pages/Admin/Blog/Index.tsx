@@ -63,12 +63,18 @@ export default function BlogAdminIndex({ posts }: Props) {
     event.preventDefault();
 
     if (editing) {
-      form
-        .transform((data) => ({ ...data, _method: "put" }))
-        .post(`/admin/blog/${editing.id}`, {
+      router.post(
+        `/admin/blog/${editing.id}`,
+        {
+          ...form.data,
+          _method: "put",
+        },
+        {
           forceFormData: true,
           onSuccess: reset,
-        });
+          onError: (errors) => form.setError(errors),
+        },
+      );
       return;
     }
 
