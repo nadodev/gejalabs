@@ -44,10 +44,8 @@ export function TerminalWindow({ projects }: TerminalWindowProps) {
     bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight });
   }, [lines]);
 
-  const whoami = `
-    Meu nome é Leonardo Geja, sou desenvolvedor de software a mais de 3 anos, atualmente trabalho na
-    Unoesc - Universidade do Oeste de Santa Catarina, tenho 35 anos.
-  `;
+  const whoami = `Meu nome é Leonardo Geja, sou desenvolvedor de software a mais de 3 anos, atualmente trabalho na
+    Unoesc - Universidade do Oeste de Santa Catarina, tenho 35 anos.`;
 
   function run(raw: string) {
     const cmd = raw.trim();
