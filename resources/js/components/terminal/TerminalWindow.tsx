@@ -9,8 +9,7 @@ type TerminalWindowProps = {
 };
 
 
-  const whoami = `Meu nome é Leonardo Geja, sou desenvolvedor de software a mais de 3 anos, atualmente trabalho na
-    Unoesc - Universidade do Oeste de Santa Catarina, tenho 35 anos.`;
+  const whoami = `My name is Leonardo Geja. I am a software developer with over three years of experience, currently working at Unoesc — the University of Western Santa Catarina. I am 35 years old and focused on building reliable, maintainable, and well-structured software solutions.`;
 
 const HELP = [
   "available commands:",
