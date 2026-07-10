@@ -39,24 +39,24 @@ export default function BlogIndex({ posts }: Props) {
         </p>
 
         {posts.length ? (
-          <div className="mt-10 grid gap-4">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="group grid overflow-hidden border border-border bg-card/70 transition-colors hover:border-primary/40 sm:grid-cols-[220px_1fr]"
+                className="group flex min-h-full flex-col overflow-hidden border border-border bg-card/70 transition-colors hover:border-primary/40"
               >
-                <div className="relative min-h-36 bg-surface">
+                <div className="relative bg-surface">
                   {coverUrl(post) ? (
-                    <img src={coverUrl(post) ?? ""} alt="" className="h-full min-h-36 w-full object-cover object-center" />
+                    <img src={coverUrl(post) ?? ""} alt="" className="h-32 w-full object-cover object-center sm:h-36" />
                   ) : (
-                    <div className="grid h-full min-h-36 place-items-center text-primary">
+                    <div className="grid h-32 place-items-center text-primary sm:h-36">
                       <PenLine className="size-7" />
                     </div>
                   )}
                   <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-primary/10 transition-colors group-hover:ring-primary/25" />
                 </div>
-                <div className="flex min-w-0 flex-col p-4 sm:p-5">
+                <div className="flex flex-1 min-w-0 flex-col p-4">
                   <div className="flex flex-wrap items-center gap-3 font-mono text-[0.65rem] text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
                       <CalendarDays className="size-3.5 text-primary" />
@@ -64,7 +64,7 @@ export default function BlogIndex({ posts }: Props) {
                     </span>
                     <span>{post.author}</span>
                   </div>
-                  <h2 className="mt-2 font-display text-xl font-600 tracking-tight transition-colors group-hover:text-primary sm:text-2xl">
+                  <h2 className="mt-2 line-clamp-2 font-display text-lg font-600 tracking-tight transition-colors group-hover:text-primary">
                     {post.title}
                   </h2>
                   <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{post.description}</p>
