@@ -12,20 +12,14 @@ export function Footer() {
           {new Date().getFullYear()}
         </p>
         <div className="flex gap-4 font-mono text-xs text-muted-foreground">
-          <Link href="/experiments?tab=professional" className="hover:text-foreground">
-            profissionais
-          </Link>
-          <Link href="/experiments?tab=personal" className="hover:text-foreground">
-            pessoais
+          <Link href="/experiments" className="hover:text-foreground">
+            Projects
           </Link>
           <Link href="/knowledge" className="hover:text-foreground">
-            laboratório
+            Knowledge
           </Link>
           <Link href="/about" className="hover:text-foreground">
-            sobre
-          </Link>
-          <Link href="/login" className="hover:text-foreground">
-            admin
+            about
           </Link>
         </div>
       </div>

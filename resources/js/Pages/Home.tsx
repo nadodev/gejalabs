@@ -1,6 +1,7 @@
 import { Head, Link } from "@inertiajs/react";
 import { motion } from "motion/react";
-import { Activity, ArrowRight, Cpu, FlaskConical, GitBranch } from "lucide-react";
+import { ArrowRight, BookOpenText, BriefcaseBusiness, FlaskConical, Github } from "lucide-react";
+import { useEffect, useState } from "react";
 import { AppLayout } from "@/Layouts/AppLayout";
 import { ExperimentCard } from "@/components/dashboard/ExperimentCard";
 import { MetricCard } from "@/components/dashboard/MetricCard";
@@ -13,9 +14,62 @@ const focus = ["Architecture", "AI", "Backend Systems", "Developer Experience", 
 interface Props {
   latestProjects: PersonalProject[];
   terminalProjects: Pick<PersonalProject, "slug" | "title">[];
+  metrics: {
+    projects: {
+      total: number;
+      stable: number;
+      running: number;
+    };
+    experience: {
+      years: number;
+      since: number;
+    };
+    knowledge: {
+      nodes: number;
+      timeline: number;
+    };
+  };
 }
 
-export default function Home({ latestProjects, terminalProjects }: Props) {
+interface GitHubProfile {
+  public_repos: number;
+}
+
+function formatNumber(value: number) {
+  return new Intl.NumberFormat("en-US", { minimumIntegerDigits: 2 }).format(value);
+}
+
+export default function Home({ latestProjects, terminalProjects, metrics }: Props) {
+  const [publicRepositories, setPublicRepositories] = useState<string>("...");
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("https://api.github.com/users/nadodev", {
+      headers: { Accept: "application/vnd.github+json" },
+      signal: controller.signal,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Could not load GitHub profile");
+        }
+
+        return response.json() as Promise<GitHubProfile>;
+      })
+      .then((profile) => {
+        setPublicRepositories(formatNumber(profile.public_repos));
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
+        setPublicRepositories("--");
+      });
+
+    return () => controller.abort();
+  }, []);
+
   return (
     <AppLayout>
       <Head>
@@ -102,10 +156,40 @@ export default function Home({ latestProjects, terminalProjects }: Props) {
         </section>
 
         <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <MetricCard icon={FlaskConical} label="Experiments" value="04" hint="1 stable · 2 running" />
-          <MetricCard icon={Activity} label="Uptime" value="99.9%" hint="last 30 days" accent="info" delay={0.05} />
-          <MetricCard icon={Cpu} label="AI modules" value="02" hint="RAG · embeddings" delay={0.1} />
-          <MetricCard icon={GitBranch} label="Commits / wk" value="47" hint="+12 vs last" accent="warning" delay={0.15} />
+          <MetricCard
+            icon={FlaskConical}
+            label="Projects"
+            value={formatNumber(metrics.projects.total)}
+            hint={`${metrics.projects.stable} stable / ${metrics.projects.running} running`}
+            href="/experiments"
+          />
+          <MetricCard
+            icon={BriefcaseBusiness}
+            label="Experience"
+            value={`${metrics.experience.years}+`}
+            hint={`since ${metrics.experience.since}`}
+            accent="info"
+            delay={0.05}
+            href="/about"
+          />
+          <MetricCard
+            icon={BookOpenText}
+            label="Knowledge"
+            value={formatNumber(metrics.knowledge.nodes)}
+            hint={`${metrics.knowledge.timeline} timeline entries`}
+            delay={0.1}
+            href="/knowledge"
+          />
+          <MetricCard
+            icon={Github}
+            label="Repositories"
+            value={publicRepositories}
+            hint="public on GitHub"
+            accent="warning"
+            delay={0.15}
+            href="https://github.com/nadodev"
+            external
+          />
         </section>
 
         <section className="mt-14 grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -113,7 +197,7 @@ export default function Home({ latestProjects, terminalProjects }: Props) {
             <div className="mb-4 flex items-center justify-between">
               <h2 className="font-display text-2xl font-600">Active experiments</h2>
               <Link href="/experiments" className="font-mono text-xs text-primary hover:underline">
-                view all →
+                view all -&gt;
               </Link>
             </div>
             <div className="grid gap-4">

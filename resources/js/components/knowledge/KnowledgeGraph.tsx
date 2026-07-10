@@ -108,7 +108,11 @@ export function KnowledgeGraph({ items = [] }: { items?: KnowledgeGraphItem[] })
                 "--tw-ring-color": "color-mix(in oklab, var(--background) 70%, transparent)",
               }}
             />
-            <span className="whitespace-nowrap border border-border bg-card/90 px-2 py-0.5 font-mono text-[0.6rem] sm:text-[0.7rem]">
+            <span
+              className="notranslate whitespace-nowrap border border-border bg-card/90 px-2 py-0.5 font-mono text-[0.6rem] sm:text-[0.7rem]"
+              translate="no"
+              data-no-translate
+            >
               {n.label}
             </span>
           </div>

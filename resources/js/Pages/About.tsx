@@ -1,6 +1,7 @@
 ﻿import { Head } from "@inertiajs/react";
 import { Boxes, BriefcaseBusiness, Cpu, Download, Github, Layers, Linkedin } from "lucide-react";
 import { AppLayout } from "@/Layouts/AppLayout";
+import { Timeline } from "@/components/timeline/Timeline";
 import { TerminalWindow } from "@/components/terminal/TerminalWindow";
 import type { AboutPage, PersonalProject, WorkExperience } from "@/types/admin";
 
@@ -23,6 +24,12 @@ export default function About({ about, experiences, terminalProjects }: Props) {
   const resumeUrl = about?.resume_path ? `/storage/${about.resume_path}` : null;
   const githubUrl = about?.github_url || "https://github.com/gejalabs";
   const linkedinUrl = about?.linkedin_url;
+  const experienceEntries = experiences.map((experience) => ({
+    year: `${formatDate(experience.started_at)} - ${experience.is_current ? "Current" : formatDate(experience.ended_at)}`,
+    title: `${experience.role} at ${experience.company}`,
+    detail: experience.description,
+    tags: experience.tags ?? [],
+  }));
 
   return (
     <AppLayout>
@@ -85,31 +92,15 @@ export default function About({ about, experiences, terminalProjects }: Props) {
             ) : null}
           </div>
 
-          <div className="space-y-4">
+          <div>
             {experiences.length ? (
-              experiences.map((experience) => (
-                <article key={experience.id} className="panel p-5">
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <div>
-                      <h3 className="font-display text-xl font-600">{experience.company}</h3>
-                      <p className="mt-1 font-mono text-xs text-primary">{experience.role}</p>
-                    </div>
-                    <div className="border border-border px-2 py-1 font-mono text-[0.65rem] text-muted-foreground">
-                      {formatDate(experience.started_at)} - {experience.is_current ? "Current" : formatDate(experience.ended_at)}
-                    </div>
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{experience.description}</p>
-                  {experience.tags?.length ? (
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {experience.tags.map((tag) => (
-                        <span key={tag} className="border border-border bg-surface px-2 py-1 font-mono text-[0.65rem] text-muted-foreground">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
-                </article>
-              ))
+              <>
+                <h2 className="font-display text-2xl font-600">Professional timeline</h2>
+                <p className="mt-2 mb-6 text-sm text-muted-foreground">
+                  How my practical experience has evolved through real projects, teams, and technical responsibilities.
+                </p>
+                <Timeline entries={experienceEntries} />
+              </>
             ) : (
               <div className="panel p-5 text-sm text-muted-foreground">No work experiences registered yet.</div>
             )}

@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "@inertiajs/react";
 import { motion } from "motion/react";
 import type { LucideIcon } from "lucide-react";
 
@@ -10,6 +11,8 @@ export function MetricCard({
   hint,
   accent = "primary",
   delay = 0,
+  href,
+  external = false,
 }: {
   icon: LucideIcon;
   label: string;
@@ -17,15 +20,18 @@ export function MetricCard({
   hint?: string;
   accent?: "primary" | "info" | "warning";
   delay?: number;
+  href?: string;
+  external?: boolean;
 }) {
   const color =
     accent === "info" ? "text-info" : accent === "warning" ? "text-warning" : "text-primary";
-  return (
+
+  const content = (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="panel p-4"
+      className="panel p-4 transition-colors hover:border-primary/50"
     >
       <div className="flex items-center justify-between">
         <span className="mono-label">{label}</span>
@@ -34,5 +40,23 @@ export function MetricCard({
       <div className="mt-2 font-display text-2xl font-700">{value}</div>
       {hint && <div className="mt-0.5 font-mono text-[0.65rem] text-muted-foreground">{hint}</div>}
     </motion.div>
+  );
+
+  if (!href) {
+    return content;
+  }
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" aria-label={label}>
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} aria-label={label}>
+      {content}
+    </Link>
   );
 }

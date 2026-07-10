@@ -6,6 +6,7 @@ interface Entry {
   year: string;
   title: string;
   detail: string;
+  tags?: string[];
 }
 
 export function Timeline({ entries }: { entries: Entry[] }) {
@@ -26,6 +27,18 @@ export function Timeline({ entries }: { entries: Entry[] }) {
             <div className="font-mono text-xs text-primary">{e.year}</div>
             <div className="mt-0.5 font-display text-lg font-600">{e.title}</div>
             <p className="mt-0.5 text-sm text-muted-foreground">{e.detail}</p>
+            {e.tags?.length ? (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {e.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="border border-border bg-surface px-2 py-1 font-mono text-[0.65rem] text-muted-foreground"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            ) : null}
           </motion.li>
         ))}
       </ul>

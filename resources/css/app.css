@@ -101,6 +101,7 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    top: 0 !important;
   }
 
   ::selection {
@@ -183,4 +184,19 @@
 *::before,
 *::after {
   border-radius: 0 !important;
+}
+
+.google-translate-anchor,
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+.goog-te-gadget,
+.goog-te-balloon-frame,
+#goog-gt-tt,
+body > .skiptranslate {
+  display: none !important;
+}
+
+html.translated-ltr body,
+html.translated-rtl body {
+  top: 0 !important;
 }
