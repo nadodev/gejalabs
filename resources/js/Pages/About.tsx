@@ -29,8 +29,7 @@ export default function About({ about, books, curiosities, galleryPhotos }: Prop
     { id: "principios", label: "Principios", show: true },
     { id: "livros", label: "Livros", show: books.length > 0 },
     { id: "fotos", label: "Fotos", show: galleryPhotos.length > 0 },
-    { id: "curiosidades", label: "Curiosidades", show: curiosities.length > 0 },
-    { id: "contato", label: "Contato", show: true },
+    { id: "curiosidades", label: "Curiosidades", show: curiosities.length > 0 }
   ].filter((section) => section.show);
 
   return (
@@ -126,9 +125,10 @@ export default function About({ about, books, curiosities, galleryPhotos }: Prop
         </section>
 
         {(books.length || galleryPhotos.length) ? (
-          <section className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            {books.length ? (
-              <div id="livros" className="scroll-mt-24">
+          <section className="mt-12 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+            <div className="space-y-8">
+              {books.length ? (
+                <div id="livros" className="scroll-mt-24">
                 <SectionTitle eyebrow="biblioteca" title="Livros" description="Leituras que formam repertorio tecnico, criativo e pessoal." icon={BookOpen} />
                 <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
                   {books.map((book) => (
@@ -150,8 +150,30 @@ export default function About({ about, books, curiosities, galleryPhotos }: Prop
                     </article>
                   ))}
                 </div>
-              </div>
-            ) : null}
+                </div>
+              ) : null}
+
+              {curiosities.length ? (
+                <div id="curiosidades" className="scroll-mt-24">
+                  <SectionTitle eyebrow="off topic" title="Curiosidades" description="Pequenas notas pessoais, preferências e detalhes que ajudam a deixar a página menos só currículo." icon={Sparkles} />
+                  <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                    {curiosities.map((curiosity, index) => (
+                      <article key={curiosity.id} className="group border border-border bg-card/45 p-4 shadow-panel transition-colors hover:border-primary/40">
+                        <div className="flex items-start gap-3">
+                          <span className="mt-1 grid size-7 shrink-0 place-items-center border border-primary/35 bg-primary/10 font-mono text-[0.65rem] text-primary">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <div>
+                            <h3 className="font-display text-base font-600">{curiosity.title}</h3>
+                            <p className="mt-1 text-sm leading-6 text-muted-foreground">{curiosity.description}</p>
+                          </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
 
             {galleryPhotos.length ? (
               <div id="fotos" className="scroll-mt-24">
@@ -181,34 +203,6 @@ export default function About({ about, books, curiosities, galleryPhotos }: Prop
             ) : null}
           </section>
         ) : null}
-
-        <section className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          {curiosities.length ? (
-            <div id="curiosidades" className="scroll-mt-24 border border-border bg-card/60 p-5 shadow-panel">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <Sparkles className="size-5 text-primary" />
-                    <span className="mono-label">off topic</span>
-                  </div>
-                  <h2 className="mt-2 font-display text-2xl font-600">Curiosidades</h2>
-                </div>
-              </div>
-              <div className="mt-5 space-y-3">
-                {curiosities.map((curiosity, index) => (
-                  <article key={curiosity.id} className="grid grid-cols-[auto_1fr] gap-4 border border-border bg-surface/45 p-4">
-                    <span className="font-mono text-xs text-primary">{String(index + 1).padStart(2, "0")}</span>
-                    <div>
-                      <h3 className="font-display text-lg font-600">{curiosity.title}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground">{curiosity.description}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ) : null}
-          
-        </section>
 
       </main>
 
