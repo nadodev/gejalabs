@@ -42,6 +42,7 @@ Route::get('/experiments/{slug}', function (string $slug) {
 Route::get('/knowledge', fn () => Inertia::render('Knowledge', [
     'timeline' => KnowledgeItem::where('type', 'timeline')->where('is_published', true)->orderBy('sort_order')->get(),
     'nodes' => KnowledgeItem::where('type', 'node')->where('is_published', true)->orderBy('sort_order')->get(),
+    'experiences' => WorkExperience::orderByDesc('is_current')->orderByDesc('started_at')->get(),
 ]))->name('knowledge');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -49,7 +50,6 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/about', fn () => Inertia::render('About', [
     'about' => AboutPage::first(),
-    'experiences' => WorkExperience::orderByDesc('is_current')->orderByDesc('started_at')->get(),
     'terminalProjects' => PersonalProject::where('is_published', true)->latest()->get(),
     'books' => AboutBook::where('is_published', true)->orderBy('sort_order')->orderBy('title')->get(),
     'curiosities' => AboutCuriosity::where('is_published', true)->orderBy('sort_order')->orderBy('title')->get(),

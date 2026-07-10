@@ -1,12 +1,11 @@
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
-import { ArrowUp, BookOpen, Boxes, BriefcaseBusiness, Camera, Cpu, Download, Github, Layers, Linkedin, Sparkles, X } from "lucide-react";
+import { BookOpen, Boxes, BriefcaseBusiness, Camera, Cpu, Download, Github, Layers, Linkedin, Sparkles, X } from "lucide-react";
 import { AppLayout } from "@/Layouts/AppLayout";
-import type { AboutBook, AboutCuriosity, AboutGalleryPhoto, AboutPage, WorkExperience } from "@/types/admin";
+import type { AboutBook, AboutCuriosity, AboutGalleryPhoto, AboutPage } from "@/types/admin";
 
 interface Props {
   about: AboutPage | null;
-  experiences: WorkExperience[];
   books: AboutBook[];
   curiosities: AboutCuriosity[];
   galleryPhotos: AboutGalleryPhoto[];
@@ -20,21 +19,17 @@ const fallbackPrinciples = [
 
 const icons = [Layers, Cpu, Boxes];
 
-export default function About({ about, experiences, books, curiosities, galleryPhotos }: Props) {
+export default function About({ about, books, curiosities, galleryPhotos }: Props) {
   const [selectedPhoto, setSelectedPhoto] = useState<AboutGalleryPhoto | null>(null);
   const principles = about?.principles?.length ? about.principles : fallbackPrinciples;
   const resumeUrl = about?.resume_path ? `/storage/${about.resume_path}` : null;
   const githubUrl = about?.github_url || "https://github.com/gejalabs";
   const linkedinUrl = about?.linkedin_url;
-  const currentExperience = experiences.find((experience) => experience.is_current);
-  const pastExperiences = experiences.filter((experience) => !experience.is_current);
-  const orderedExperiences = currentExperience ? [currentExperience, ...pastExperiences] : experiences;
   const sections = [
     { id: "principios", label: "Principios", show: true },
     { id: "livros", label: "Livros", show: books.length > 0 },
     { id: "fotos", label: "Fotos", show: galleryPhotos.length > 0 },
     { id: "curiosidades", label: "Curiosidades", show: curiosities.length > 0 },
-    { id: "experiencias", label: "Experiencias", show: orderedExperiences.length > 0 },
     { id: "contato", label: "Contato", show: true },
   ].filter((section) => section.show);
 
@@ -94,13 +89,13 @@ export default function About({ about, experiences, books, curiosities, galleryP
           </section>
         </section>
 
-        <nav className="panel mt-8 p-3" aria-label="Indice da pagina Sobre">
+        <nav className="mt-8 border border-border bg-card/55 p-3 shadow-panel" aria-label="Indice da pagina Sobre">
           <div className="flex flex-wrap gap-2">
             {sections.map((section, index) => (
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className="group inline-flex items-center gap-2 border border-border bg-surface/55 px-3 py-2 font-mono text-[0.68rem] text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+                className="group inline-flex items-center gap-2 border border-border bg-surface/45 px-3 py-2 font-mono text-[0.68rem] text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
               >
                 <span className="text-primary">{String(index + 1).padStart(2, "0")}</span>
                 {section.label}
@@ -115,7 +110,6 @@ export default function About({ about, experiences, books, curiosities, galleryP
               <span className="mono-label">base</span>
               <h2 className="mt-2 font-display text-3xl font-600">Principios</h2>
             </div>
-            <TopButton />
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
           {principles.map((principle, index) => {
@@ -136,14 +130,14 @@ export default function About({ about, experiences, books, curiosities, galleryP
             {books.length ? (
               <div id="livros" className="scroll-mt-24">
                 <SectionTitle eyebrow="biblioteca" title="Livros" description="Leituras que formam repertorio tecnico, criativo e pessoal." icon={BookOpen} />
-                <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
                   {books.map((book) => (
-                    <article key={book.id} className="group grid grid-cols-[76px_1fr] gap-4 border border-border bg-card/70 p-3 shadow-panel transition-colors hover:border-primary/45">
-                      <div className="overflow-hidden border border-border bg-surface">
+                    <article key={book.id} className="group grid grid-cols-[88px_1fr] gap-4 border border-border bg-card/60 p-3 shadow-panel transition-colors hover:border-primary/45">
+                      <div className="overflow-hidden border border-border bg-surface/70">
                         {book.image_path ? (
-                          <img src={`/storage/${book.image_path}`} alt={`Capa do livro ${book.title}`} className="h-28 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                          <img src={`/storage/${book.image_path}`} alt={`Capa do livro ${book.title}`} className="h-32 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                         ) : (
-                          <div className="grid h-28 place-items-center text-primary">
+                          <div className="grid h-32 place-items-center text-primary">
                             <BookOpen className="size-5" />
                           </div>
                         )}
@@ -163,19 +157,17 @@ export default function About({ about, experiences, books, curiosities, galleryP
               <div id="fotos" className="scroll-mt-24">
                 <SectionTitle eyebrow="galeria" title="Fotos" description="Miniaturas menores, com foco na composicao geral. Clique para ver maior." icon={Camera} />
                 <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                  {galleryPhotos.map((photo, index) => (
+                  {galleryPhotos.map((photo) => (
                     <button
                       key={photo.id}
                       type="button"
                       onClick={() => setSelectedPhoto(photo)}
-                      className={`group relative overflow-hidden border border-border bg-card text-left shadow-panel transition-colors hover:border-primary/60 ${
-                        index === 0 ? "sm:col-span-2 sm:row-span-2" : ""
-                      }`}
+                      className="group relative overflow-hidden border border-border bg-card text-left shadow-panel transition-colors hover:border-primary/60"
                     >
                       <img
                         src={`/storage/${photo.image_path}`}
                         alt={photo.caption || "Foto da galeria"}
-                        className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${index === 0 ? "h-48 sm:h-64" : "h-28 sm:h-32"}`}
+                        className="h-32 w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-36"
                       />
                       {photo.caption ? (
                         <span className="absolute inset-x-0 bottom-0 bg-background/72 px-3 py-2 text-xs text-foreground opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
@@ -192,7 +184,7 @@ export default function About({ about, experiences, books, curiosities, galleryP
 
         <section className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           {curiosities.length ? (
-            <div id="curiosidades" className="panel scroll-mt-24 p-5">
+            <div id="curiosidades" className="scroll-mt-24 border border-border bg-card/60 p-5 shadow-panel">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-3">
@@ -201,7 +193,6 @@ export default function About({ about, experiences, books, curiosities, galleryP
                   </div>
                   <h2 className="mt-2 font-display text-2xl font-600">Curiosidades</h2>
                 </div>
-                <TopButton />
               </div>
               <div className="mt-5 space-y-3">
                 {curiosities.map((curiosity, index) => (
@@ -218,10 +209,9 @@ export default function About({ about, experiences, books, curiosities, galleryP
           ) : null}
 
           <div id="contato" className="scroll-mt-24">
-            <section className="panel p-5">
-              <div className="flex items-start justify-between gap-4">
+            <section className="border border-border bg-card/60 p-5 shadow-panel">
+              <div>
                 <h2 className="font-display text-2xl font-600">{about?.contact_title ?? "Entre em contato"}</h2>
-                <TopButton />
               </div>
               <p className="mt-2 text-muted-foreground">
                 {about?.contact_text ?? "O laboratorio esta aberto. Explore os projetos, leia os relatos tecnicos ou entre em contato pelo repositorio."}
@@ -230,46 +220,6 @@ export default function About({ about, experiences, books, curiosities, galleryP
           </div>
         </section>
 
-        <section id="experiencias" className="mt-12 scroll-mt-24">
-          <SectionTitle eyebrow="trajetoria" title="Experiencias profissionais" description="As experiencias mais recentes aparecem primeiro, com destaque para a posicao atual." />
-          {orderedExperiences.length ? (
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
-              {orderedExperiences.map((experience, index) => (
-                <article
-                  key={experience.id}
-                  className={`relative overflow-hidden border p-5 shadow-panel ${
-                    experience.is_current ? "border-primary/55 bg-card shadow-neon md:col-span-2" : "border-border bg-card/70"
-                  }`}
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <div>
-                      <span className="font-mono text-xs text-primary">
-                        {experience.is_current ? "ATUAL" : `EXPERIENCIA ${String(index + 1).padStart(2, "0")}`}
-                      </span>
-                      <h3 className="mt-2 font-display text-2xl font-600">{experience.company}</h3>
-                      <p className="mt-1 font-mono text-xs text-muted-foreground">{experience.role}</p>
-                    </div>
-                    <span className="border border-border bg-surface px-3 py-1.5 font-mono text-[0.68rem] text-muted-foreground">
-                      {formatDate(experience.started_at)} - {experience.is_current ? "Atual" : formatDate(experience.ended_at)}
-                    </span>
-                  </div>
-                  <p className="mt-4 text-sm leading-6 text-muted-foreground">{experience.description}</p>
-                  {experience.tags?.length ? (
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {experience.tags.map((tag) => (
-                        <span key={tag} className="border border-border bg-surface/70 px-2 py-1 font-mono text-[0.65rem] text-muted-foreground">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className="panel mt-6 p-5 text-sm text-muted-foreground">Nenhuma experiencia profissional cadastrada ainda.</div>
-          )}
-        </section>
       </main>
 
       {selectedPhoto ? (
@@ -304,34 +254,13 @@ function SectionTitle({
   icon?: React.ComponentType<{ className?: string }>;
 }) {
   return (
-    <div className="flex max-w-3xl items-start justify-between gap-4">
-      <div>
-        <div className="flex items-center gap-3">
-          {Icon ? <Icon className="size-5 text-primary" /> : null}
-          <span className="mono-label">{eyebrow}</span>
-        </div>
-        <h2 className="mt-2 font-display text-3xl font-600">{title}</h2>
-        <p className="mt-2 text-sm text-muted-foreground">{description}</p>
+    <div className="max-w-2xl">
+      <div className="flex items-center gap-3">
+        {Icon ? <Icon className="size-5 text-primary" /> : null}
+        <span className="mono-label">{eyebrow}</span>
       </div>
-      <TopButton />
+      <h2 className="mt-2 font-display text-3xl font-600">{title}</h2>
+      <p className="mt-2 text-sm text-muted-foreground">{description}</p>
     </div>
   );
-}
-
-function TopButton() {
-  return (
-    <a
-      href="#about-top"
-      className="inline-flex shrink-0 items-center gap-2 border border-border bg-surface px-3 py-2 font-mono text-[0.68rem] text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
-      aria-label="Voltar ao topo"
-    >
-      <ArrowUp className="size-3.5" />
-      topo
-    </a>
-  );
-}
-
-function formatDate(value: string | null) {
-  if (!value) return "Atual";
-  return new Intl.DateTimeFormat("pt-BR", { month: "short", year: "numeric" }).format(new Date(value));
 }

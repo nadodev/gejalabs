@@ -16,7 +16,7 @@ export function Footer() {
             Projetos
           </Link>
           <Link href="/knowledge" className="hover:text-foreground">
-            Conhecimento
+            Experiencias
           </Link>
           <Link href="/blog" className="hover:text-foreground">
             Blog

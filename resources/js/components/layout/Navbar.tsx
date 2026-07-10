@@ -24,7 +24,7 @@ const links = [
   { to: "/", label: "INICIO", match: (url: string) => url === "/" },
   { to: "/about", label: "SOBRE", match: (url: string) => url.startsWith("/about") },
   { to: "/experiments", label: "PROJETOS", match: (url: string) => url.startsWith("/experiments") },
-  { to: "/knowledge", label: "CONHECIMENTO", match: (url: string) => url.startsWith("/knowledge") },
+  { to: "/knowledge", label: "EXPERIENCIAS", match: (url: string) => url.startsWith("/knowledge") },
   { to: "/blog", label: "BLOG", match: (url: string) => url.startsWith("/blog") },
 ] as const;
 

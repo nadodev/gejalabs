@@ -147,7 +147,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
                 href="/knowledge"
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-center font-mono text-sm transition-colors hover:border-primary/50 hover:text-primary"
               >
-                Grafo de conhecimento <ArrowRight className="size-4" />
+                Ver experiencias <ArrowRight className="size-4" />
               </Link>
             </motion.div>
           </div>
@@ -174,7 +174,7 @@ export default function Home({ latestProjects, terminalProjects, metrics }: Prop
           />
           <MetricCard
             icon={BookOpenText}
-            label="Conhecimento"
+            label="Experiencias"
             value={formatNumber(metrics.knowledge.nodes)}
             hint={`${metrics.knowledge.timeline} itens na timeline`}
             delay={0.1}
