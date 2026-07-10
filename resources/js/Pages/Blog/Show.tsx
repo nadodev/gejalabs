@@ -61,18 +61,14 @@ export default function BlogShow({ post, contentHtml }: Props) {
           ) : null}
         </header>
 
-        <div className="mt-8 overflow-hidden border border-border bg-card shadow-panel">
+        <div className="mt-8 overflow-hidden border border-primary/20 bg-background shadow-[0_0_32px_-18px_var(--primary)]">
           {cover ? (
             <div className="relative">
               <img src={cover} alt="" className="aspect-[16/8] w-full object-cover" />
-              <div className="absolute inset-0 bg-linear-to-t from-background/80 via-background/5 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 flex flex-wrap items-center justify-between gap-3 border-t border-border/70 bg-background/70 px-4 py-3 backdrop-blur-md">
-                <span className="mono-label text-primary">GejaLabs Journal</span>
-                <span className="font-mono text-[0.65rem] text-muted-foreground">{formatDate(post.published_at)}</span>
-              </div>
+              <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-primary/20" />
             </div>
           ) : (
-            <div className="grid aspect-[16/6] place-items-center bg-surface/70 px-6 text-center">
+            <div className="grid aspect-[16/6] place-items-center bg-surface/45 px-6 text-center">
               <div>
                 <PenLine className="mx-auto size-8 text-primary" />
                 <div className="mt-3 mono-label text-primary">GejaLabs Journal</div>
@@ -81,7 +77,7 @@ export default function BlogShow({ post, contentHtml }: Props) {
           )}
         </div>
 
-        <div className="mt-8 border border-border bg-card/80 p-5 shadow-panel sm:p-8">
+        <div className="mt-8 border border-border/70 bg-card/55 p-5 shadow-[0_18px_60px_-42px_var(--primary)] backdrop-blur-sm sm:p-8">
           <div className="markdown-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
         </div>
       </article>

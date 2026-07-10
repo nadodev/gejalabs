@@ -231,7 +231,7 @@ html.translated-rtl body {
 .markdown-content h2 {
   font-size: 1.55rem;
   margin-top: 2.25rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
   padding-top: 1.35rem;
 }
 
@@ -261,7 +261,7 @@ html.translated-rtl body {
 
 .markdown-content blockquote {
   border-left: 2px solid var(--primary);
-  background: color-mix(in oklab, var(--surface) 58%, transparent);
+  background: color-mix(in oklab, var(--surface) 42%, transparent);
   padding: 1rem 1.1rem;
   color: var(--foreground);
 }
