@@ -30,12 +30,12 @@ export default function BlogShow({ post, contentHtml }: Props) {
         <link rel="canonical" href={`https://gejalabs.com.br/blog/${post.slug}`} />
       </Head>
 
-      <article className="mx-auto max-w-4xl px-5 py-14">
+      <article className="mx-auto max-w-5xl px-5 py-14">
         <Link href="/blog" className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground hover:text-primary">
           <ArrowLeft className="size-3.5" /> voltar para o blog
         </Link>
 
-        <header className="mt-5">
+        <header className="mt-5 max-w-4xl">
           <span className="mono-label">// artigo</span>
           <h1 className="mt-3 font-display text-4xl font-700 tracking-tight sm:text-5xl">{post.title}</h1>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{post.description}</p>
@@ -61,11 +61,29 @@ export default function BlogShow({ post, contentHtml }: Props) {
           ) : null}
         </header>
 
-        {cover ? (
-          <img src={cover} alt="" className="mt-8 aspect-[16/8] w-full border border-border object-cover" />
-        ) : null}
+        <div className="mt-8 overflow-hidden border border-border bg-card shadow-panel">
+          {cover ? (
+            <div className="relative">
+              <img src={cover} alt="" className="aspect-[16/8] w-full object-cover" />
+              <div className="absolute inset-0 bg-linear-to-t from-background/80 via-background/5 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 flex flex-wrap items-center justify-between gap-3 border-t border-border/70 bg-background/70 px-4 py-3 backdrop-blur-md">
+                <span className="mono-label text-primary">GejaLabs Journal</span>
+                <span className="font-mono text-[0.65rem] text-muted-foreground">{formatDate(post.published_at)}</span>
+              </div>
+            </div>
+          ) : (
+            <div className="grid aspect-[16/6] place-items-center bg-surface/70 px-6 text-center">
+              <div>
+                <PenLine className="mx-auto size-8 text-primary" />
+                <div className="mt-3 mono-label text-primary">GejaLabs Journal</div>
+              </div>
+            </div>
+          )}
+        </div>
 
-        <div className="markdown-content mt-10" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+        <div className="mt-8 border border-border bg-card/80 p-5 shadow-panel sm:p-8">
+          <div className="markdown-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+        </div>
       </article>
     </AppLayout>
   );
