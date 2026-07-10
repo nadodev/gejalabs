@@ -67,7 +67,17 @@ export default function ExperimentsIndex({ personalProjects, professionalProject
 
   return (
     <AppLayout>
-      <Head title="Projetos" />
+      <Head>
+        <title>Experiments | GejaLabs</title>
+        <meta
+          name="description"
+          content="Browse personal and professional experiments from GejaLabs, including architecture, AI, backend systems and engineering practice."
+        />
+        <meta property="og:title" content="Experiments | GejaLabs" />
+        <meta property="og:description" content="A portfolio of practical engineering experiments and case studies from GejaLabs." />
+        <meta property="og:image" content="/og-image.svg" />
+        <link rel="canonical" href="https://gejalabs.com.br/experiments" />
+      </Head>
       <div className="mx-auto max-w-6xl px-5 py-14">
         <span className="mono-label">{copy[activeTab].eyebrow}</span>
         <h1 className="mt-2 font-display text-4xl font-700 tracking-tight sm:text-5xl">{copy[activeTab].title}</h1>

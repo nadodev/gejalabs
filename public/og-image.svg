@@ -1,0 +1,18 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="32" fill="#07111F"/>
+  <rect x="36" y="36" width="1128" height="558" rx="24" fill="#0C172B" stroke="#22D3EE" stroke-opacity="0.35"/>
+  <rect x="84" y="94" width="220" height="12" rx="6" fill="#22D3EE" fill-opacity="0.7"/>
+  <rect x="84" y="126" width="300" height="18" rx="9" fill="#F8FAFC"/>
+  <rect x="84" y="170" width="560" height="70" rx="16" fill="#111C32"/>
+  <text x="112" y="220" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="700">GejaLabs</text>
+  <text x="112" y="270" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="24">Software engineering portfolio · architecture · AI · backend systems</text>
+  <rect x="84" y="332" width="240" height="140" rx="20" fill="#17233F"/>
+  <rect x="348" y="332" width="240" height="140" rx="20" fill="#17233F"/>
+  <rect x="612" y="332" width="240" height="140" rx="20" fill="#17233F"/>
+  <circle cx="204" cy="402" r="44" fill="#22D3EE" fill-opacity="0.18"/>
+  <circle cx="468" cy="402" r="44" fill="#22D3EE" fill-opacity="0.18"/>
+  <circle cx="732" cy="402" r="44" fill="#22D3EE" fill-opacity="0.18"/>
+  <path d="M168 404L192 428L240 380" stroke="#22D3EE" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M432 404H504" stroke="#22D3EE" stroke-width="12" stroke-linecap="round"/>
+  <path d="M696 404H768" stroke="#22D3EE" stroke-width="12" stroke-linecap="round"/>
+</svg>

@@ -22,7 +22,17 @@ export default function Knowledge({ timeline, nodes }: Props) {
 
   return (
     <AppLayout>
-      <Head title="Knowledge" />
+      <Head>
+        <title>Knowledge | GejaLabs</title>
+        <meta
+          name="description"
+          content="Explore the knowledge graph and technical timeline from GejaLabs, connecting architecture, AI and backend engineering concepts."
+        />
+        <meta property="og:title" content="Knowledge | GejaLabs" />
+        <meta property="og:description" content="A structured map of concepts, tools and learnings behind GejaLabs experiments." />
+        <meta property="og:image" content="/og-image.svg" />
+        <link rel="canonical" href="https://gejalabs.com.br/knowledge" />
+      </Head>
       <div className="mx-auto max-w-6xl px-5 py-14">
         <span className="mono-label">// knowledge base</span>
         <h1 className="mt-2 font-display text-4xl font-700 tracking-tight sm:text-5xl">

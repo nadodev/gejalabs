@@ -25,7 +25,17 @@ export default function About({ about, experiences }: Props) {
 
   return (
     <AppLayout>
-      <Head title="About" />
+      <Head>
+        <title>About GejaLabs | Software Engineering Portfolio</title>
+        <meta
+          name="description"
+          content="Learn about GejaLabs, the software engineering portfolio focused on architecture, AI, backend systems and long-term experiments."
+        />
+        <meta property="og:title" content="About GejaLabs | Software Engineering Portfolio" />
+        <meta property="og:description" content="Discover the mission, principles and career journey behind GejaLabs." />
+        <meta property="og:image" content="/og-image.svg" />
+        <link rel="canonical" href="https://gejalabs.com.br/about" />
+      </Head>
       <div id="contact" className="mx-auto max-w-5xl px-5 py-14">
         <span className="mono-label">{about?.eyebrow ?? "// readme"}</span>
         <h1 className="mt-2 font-display text-4xl font-700 tracking-tight sm:text-5xl">

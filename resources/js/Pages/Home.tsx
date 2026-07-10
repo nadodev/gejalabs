@@ -17,7 +17,20 @@ interface Props {
 export default function Home({ latestProjects }: Props) {
   return (
     <AppLayout>
-      <Head title="Software Engineering Laboratory" />
+      <Head>
+        <title>GejaLabs | Software Engineering Laboratory</title>
+        <meta
+          name="description"
+          content="GejaLabs is a software engineering portfolio showcasing architecture experiments, AI systems, backend solutions and developer experience work."
+        />
+        <meta property="og:title" content="GejaLabs | Software Engineering Laboratory" />
+        <meta
+          property="og:description"
+          content="Explore practical experiments in architecture, AI, backend systems and developer experience from GejaLabs."
+        />
+        <meta property="og:image" content="/og-image.svg" />
+        <link rel="canonical" href="https://gejalabs.com.br" />
+      </Head>
       <div className="mx-auto max-w-6xl px-5 py-14">
         <section className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start">
           <div>
