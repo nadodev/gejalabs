@@ -207,17 +207,7 @@ export default function About({ about, books, curiosities, galleryPhotos }: Prop
               </div>
             </div>
           ) : null}
-
-          <div id="contato" className="scroll-mt-24">
-            <section className="border border-border bg-card/60 p-5 shadow-panel">
-              <div>
-                <h2 className="font-display text-2xl font-600">{about?.contact_title ?? "Entre em contato"}</h2>
-              </div>
-              <p className="mt-2 text-muted-foreground">
-                {about?.contact_text ?? "O laboratorio esta aberto. Explore os projetos, leia os relatos tecnicos ou entre em contato pelo repositorio."}
-              </p>
-            </section>
-          </div>
+          
         </section>
 
       </main>
