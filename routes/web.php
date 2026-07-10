@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AboutPageController;
+use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\KnowledgeItemController;
 use App\Http\Controllers\Admin\PersonalProjectController;
 use App\Http\Controllers\Admin\ProfessionalProjectController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\WorkExperienceController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Models\AboutPage;
@@ -35,6 +37,9 @@ Route::get('/knowledge', fn () => Inertia::render('Knowledge', [
     'timeline' => KnowledgeItem::where('type', 'timeline')->where('is_published', true)->orderBy('sort_order')->get(),
     'nodes' => KnowledgeItem::where('type', 'node')->where('is_published', true)->orderBy('sort_order')->get(),
 ]))->name('knowledge');
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/about', fn () => Inertia::render('About', [
     'about' => AboutPage::first(),
@@ -65,6 +70,10 @@ Route::middleware('auth')->group(function () {
         ->only(['index', 'store', 'update', 'destroy'])
         ->parameters(['knowledge' => 'knowledgeItem'])
         ->names('admin.knowledge');
+    Route::resource('/admin/blog', BlogPostController::class)
+        ->only(['index', 'store', 'update', 'destroy'])
+        ->parameters(['blog' => 'blogPost'])
+        ->names('admin.blog');
     Route::resource('/admin/tasks', TaskController::class)
         ->only(['index', 'store', 'update', 'destroy'])
         ->names('admin.tasks');

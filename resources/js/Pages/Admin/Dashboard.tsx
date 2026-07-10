@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { BookOpenText, BriefcaseBusiness, ClipboardList, FlaskConical, RadioTower, UserRound } from "lucide-react";
+import { BookOpenText, BriefcaseBusiness, ClipboardList, FileText, FlaskConical, RadioTower, UserRound } from "lucide-react";
 import { AdminLayout } from "@/Layouts/AdminLayout";
 import type { Task } from "@/types/admin";
 
@@ -8,6 +8,7 @@ interface DashboardProps {
     personalProjects: number;
     professionalProjects: number;
     knowledgeItems: number;
+    blogPosts: number;
     tasks: number;
     openTasks: number;
     aboutConfigured: boolean;
@@ -41,6 +42,12 @@ const modules = [
     icon: BookOpenText,
   },
   {
+    title: "Blog",
+    description: "Artigos, tutoriais, capas, tags e conteudo em Markdown para a area publica do site.",
+    href: "/admin/blog",
+    icon: FileText,
+  },
+  {
     title: "Tarefas",
     description: "Tarefas tecnicas internas e notas do laboratorio. Visiveis apenas nesta area administrativa por enquanto.",
     href: "/admin/tasks",
@@ -57,6 +64,7 @@ export default function Dashboard({ metrics, recentTasks }: DashboardProps) {
             <Metric label="Pessoais" value={metrics.personalProjects} />
             <Metric label="Profissionais" value={metrics.professionalProjects} />
             <Metric label="Conhecimento" value={metrics.knowledgeItems} />
+            <Metric label="Blog" value={metrics.blogPosts} />
             <Metric label="Tarefas" value={metrics.tasks} hint={`${metrics.openTasks} abertas`} />
           </div>
 

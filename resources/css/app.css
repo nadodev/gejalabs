@@ -200,3 +200,84 @@ html.translated-ltr body,
 html.translated-rtl body {
   top: 0 !important;
 }
+
+.markdown-content {
+  color: var(--muted-foreground);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.markdown-content > * + * {
+  margin-top: 1rem;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.markdown-content h1 {
+  font-size: 2rem;
+}
+
+.markdown-content h2 {
+  font-size: 1.55rem;
+  margin-top: 2rem;
+}
+
+.markdown-content h3 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.markdown-content a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  padding-left: 1.35rem;
+}
+
+.markdown-content ul {
+  list-style: disc;
+}
+
+.markdown-content ol {
+  list-style: decimal;
+}
+
+.markdown-content blockquote {
+  border-left: 2px solid var(--primary);
+  background: color-mix(in oklab, var(--surface) 45%, transparent);
+  padding: 0.8rem 1rem;
+  color: var(--foreground);
+}
+
+.markdown-content code {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.1rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--foreground);
+}
+
+.markdown-content pre {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  background: #05070d;
+  padding: 1rem;
+}
+
+.markdown-content pre code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}

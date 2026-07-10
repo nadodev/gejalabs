@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AboutPage;
+use App\Models\BlogPost;
 use App\Models\KnowledgeItem;
 use App\Models\PersonalProject;
 use App\Models\ProfessionalProject;
@@ -20,6 +21,7 @@ class DashboardController extends Controller
                 'personalProjects' => PersonalProject::count(),
                 'professionalProjects' => ProfessionalProject::count(),
                 'knowledgeItems' => KnowledgeItem::count(),
+                'blogPosts' => BlogPost::count(),
                 'tasks' => Task::count(),
                 'openTasks' => Task::whereIn('status', ['todo', 'doing', 'blocked'])->count(),
                 'aboutConfigured' => AboutPage::query()->exists(),

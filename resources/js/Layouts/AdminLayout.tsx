@@ -2,6 +2,7 @@ import { Head, Link, router, usePage } from "@inertiajs/react";
 import {
   BookOpenText,
   BriefcaseBusiness,
+  FileText,
   FlaskConical,
   LayoutDashboard,
   ListTodo,
@@ -18,6 +19,7 @@ const nav = [
   { href: "/admin/professional-projects", label: "Projetos profissionais", icon: BriefcaseBusiness },
   { href: "/admin/about", label: "Sobre", icon: UserRound },
   { href: "/admin/knowledge", label: "Conhecimento", icon: BookOpenText },
+  { href: "/admin/blog", label: "Blog", icon: FileText },
   { href: "/admin/tasks", label: "Tarefas", icon: ListTodo },
 ];
 

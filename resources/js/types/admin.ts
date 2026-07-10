@@ -44,6 +44,21 @@ export interface TechnicalNote {
   is_published: boolean;
 }
 
+export interface BlogPost {
+  id: number;
+  title: string;
+  slug: string;
+  author: string;
+  cover_path: string | null;
+  description: string;
+  content: string;
+  tags: string[] | null;
+  is_published: boolean;
+  published_at: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface ContactMessage {
   id: number;
   name: string;
