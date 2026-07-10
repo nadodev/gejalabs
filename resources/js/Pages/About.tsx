@@ -21,6 +21,7 @@ const icons = [Layers, Cpu, Boxes];
 
 export default function About({ about, books, curiosities, galleryPhotos }: Props) {
   const [selectedPhoto, setSelectedPhoto] = useState<AboutGalleryPhoto | null>(null);
+  const [selectedBook, setSelectedBook] = useState<AboutBook | null>(null);
   const principles = about?.principles?.length ? about.principles : fallbackPrinciples;
   const resumeUrl = about?.resume_path ? `/storage/${about.resume_path}` : null;
   const githubUrl = about?.github_url || "https://github.com/gejalabs";
@@ -146,6 +147,13 @@ export default function About({ about, books, curiosities, galleryPhotos }: Prop
                         <span className="font-mono text-[0.68rem] text-primary">{book.author}</span>
                         <h3 className="mt-1 break-words font-display text-lg font-600">{book.title}</h3>
                         <p className="mt-1 line-clamp-3 text-sm leading-6 text-muted-foreground">{book.description}</p>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedBook(book)}
+                          className="mt-3 border border-border bg-surface px-3 py-2 font-mono text-[0.68rem] text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+                        >
+                          ver descricao
+                        </button>
                       </div>
                     </article>
                   ))}
@@ -155,7 +163,7 @@ export default function About({ about, books, curiosities, galleryPhotos }: Prop
 
               {curiosities.length ? (
                 <div id="curiosidades" className="scroll-mt-24">
-                  <SectionTitle eyebrow="off topic" title="Curiosidades" description="Pequenas notas pessoais, preferências e detalhes que ajudam a deixar a página menos só currículo." icon={Sparkles} />
+                  <SectionTitle eyebrow="off topic" title="Curiosidades" description="Pequenas notas pessoais, preferencias e detalhes que ajudam a deixar a pagina menos so curriculo." icon={Sparkles} />
                   <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                     {curiosities.map((curiosity, index) => (
                       <article key={curiosity.id} className="group border border-border bg-card/45 p-4 shadow-panel transition-colors hover:border-primary/40">
@@ -220,6 +228,35 @@ export default function About({ about, books, curiosities, galleryPhotos }: Prop
             <img src={`/storage/${selectedPhoto.image_path}`} alt={selectedPhoto.caption || "Foto da galeria"} className="max-h-[78vh] w-full object-contain bg-background" />
             {selectedPhoto.caption ? <figcaption className="border-t border-border bg-surface/70 px-4 py-3 text-sm text-muted-foreground">{selectedPhoto.caption}</figcaption> : null}
           </figure>
+        </div>
+      ) : null}
+
+      {selectedBook ? (
+        <div className="fixed inset-0 z-[70] grid place-items-center bg-background/88 p-4 backdrop-blur-md" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            onClick={() => setSelectedBook(null)}
+            aria-label="Fechar livro"
+            className="absolute right-4 top-4 grid size-10 place-items-center border border-border bg-surface text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+          >
+            <X className="size-5" />
+          </button>
+          <article className="grid w-full max-w-4xl overflow-hidden border border-border bg-card shadow-panel lg:grid-cols-[0.42fr_0.58fr]">
+            <div className="bg-surface/60 p-4">
+              {selectedBook.image_path ? (
+                <img src={`/storage/${selectedBook.image_path}`} alt={`Capa do livro ${selectedBook.title}`} className="max-h-[68vh] w-full object-contain" />
+              ) : (
+                <div className="grid min-h-72 place-items-center border border-border text-primary">
+                  <BookOpen className="size-10" />
+                </div>
+              )}
+            </div>
+            <div className="max-h-[80vh] overflow-y-auto p-5 sm:p-6">
+              <span className="font-mono text-xs text-primary">{selectedBook.author}</span>
+              <h2 className="mt-2 font-display text-3xl font-600">{selectedBook.title}</h2>
+              <p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-muted-foreground">{selectedBook.description}</p>
+            </div>
+          </article>
         </div>
       ) : null}
     </AppLayout>
