@@ -9,7 +9,7 @@ import { SystemStatus } from "@/components/dashboard/SystemStatus";
 import { TerminalWindow } from "@/components/terminal/TerminalWindow";
 import type { PersonalProject } from "@/types/admin";
 
-const focus = ["Arquitetura", "IA", "Backend", "Experiencia do desenvolvedor", "Front End", "DevOps", "Observabilidade", "Seguranca"];
+const focus = ["Arquitetura", "IA", "Backend", "Front End", "DevOps", "Observabilidade", "Seguranca"];
 
 interface Props {
   latestProjects: PersonalProject[];
