@@ -8,12 +8,13 @@ use Inertia\Response;
 
 class HomeController extends Controller
 {
+    const LATEST_PROJECTS_COUNT = 2;
     public function index(): Response
     {
         $latestProjects = PersonalProject::query()
             ->where('is_published', true)
             ->latest()
-            ->take(3)
+            ->take(self::LATEST_PROJECTS_COUNT)
             ->get();
 
         return Inertia::render('Home', [
