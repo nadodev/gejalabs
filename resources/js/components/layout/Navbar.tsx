@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
-import { FlaskConical, Globe, Github } from "lucide-react";
+import { FlaskConical, Globe, Github, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
 declare global {
@@ -30,6 +30,28 @@ const links = [
 
 const googleTranslateElementId = "google_translate_element";
 const googleTranslateScriptId = "google-translate-script";
+type Theme = "light" | "dark";
+
+function getInitialTheme(): Theme {
+  if (typeof window === "undefined") {
+    return "dark";
+  }
+
+  const storedTheme = window.localStorage.getItem("theme");
+
+  if (storedTheme === "light" || storedTheme === "dark") {
+    return storedTheme;
+  }
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function applyTheme(theme: Theme) {
+  document.documentElement.classList.toggle("dark", theme === "dark");
+  document.documentElement.classList.toggle("light", theme === "light");
+  document.documentElement.style.colorScheme = theme;
+  window.localStorage.setItem("theme", theme);
+}
 
 function getGoogleTranslateSelect() {
   return document.querySelector<HTMLSelectElement>(".goog-te-combo");
@@ -80,6 +102,11 @@ export function Navbar() {
   const [selectedLanguage, setSelectedLanguage] = useState<"pt" | "en">(() =>
     getCurrentGoogleTranslateLanguage(),
   );
+  const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
+
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   useEffect(() => {
     const currentLanguage = getCurrentGoogleTranslateLanguage();
@@ -142,6 +169,10 @@ export function Navbar() {
     translateSelect.dispatchEvent(new Event("change"));
   }
 
+  function toggleTheme() {
+    setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
+  }
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/60 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
@@ -199,6 +230,14 @@ export function Navbar() {
               <Globe className="size-3.5" />
             </span>
           </div>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Usar tema claro" : "Usar tema escuro"}
+            className="grid size-9 place-items-center border border-border bg-surface text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+          >
+            {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
+          </button>
           <a
             href="https://github.com/nadodev"
             target="_blank"

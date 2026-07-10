@@ -87,6 +87,46 @@
   --ring: #00ff9c;
 }
 
+:root.light {
+  --background: #f3f7f5;
+  --foreground: #0b1220;
+
+  --card: #ffffff;
+  --card-foreground: #0b1220;
+
+  --popover: #ffffff;
+  --popover-foreground: #0b1220;
+
+  --surface: #e5eee9;
+
+  --primary: #008f62;
+  --primary-foreground: #f3fff9;
+
+  --secondary: #dce7e2;
+  --secondary-foreground: #0b1220;
+
+  --muted: #edf4f1;
+  --muted-foreground: #526174;
+
+  --accent: #dce7e2;
+  --accent-foreground: #0b1220;
+
+  --info: #087ea4;
+  --warning: #a16207;
+
+  --destructive: #dc2626;
+  --destructive-foreground: #fff1f2;
+
+  --border: #cfdcd7;
+  --input: #e5eee9;
+  --ring: #008f62;
+
+  --shadow-neon: 0 0 0 1px color-mix(in oklab, var(--primary) 20%, transparent),
+    0 0 24px -10px color-mix(in oklab, var(--primary) 36%, transparent);
+  --shadow-panel: 0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+    0 18px 42px -30px rgba(17, 24, 39, 0.32);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
@@ -94,6 +134,10 @@
 
   html {
     color-scheme: dark;
+  }
+
+  html.light {
+    color-scheme: light;
   }
 
   body {
