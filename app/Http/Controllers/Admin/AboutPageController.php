@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutBook;
+use App\Models\AboutCuriosity;
+use App\Models\AboutGalleryPhoto;
 use App\Models\AboutPage;
 use App\Models\WorkExperience;
 use Illuminate\Http\RedirectResponse;
@@ -21,6 +24,9 @@ class AboutPageController extends Controller
                 'principles' => [],
             ]),
             'experiences' => WorkExperience::orderByDesc('is_current')->orderByDesc('started_at')->get(),
+            'books' => AboutBook::orderBy('sort_order')->orderBy('title')->get(),
+            'curiosities' => AboutCuriosity::orderBy('sort_order')->orderBy('title')->get(),
+            'galleryPhotos' => AboutGalleryPhoto::orderBy('sort_order')->orderBy('id')->get(),
         ]);
     }
 

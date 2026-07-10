@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AboutBookController;
+use App\Http\Controllers\Admin\AboutCuriosityController;
+use App\Http\Controllers\Admin\AboutGalleryPhotoController;
 use App\Http\Controllers\Admin\AboutPageController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\KnowledgeItemController;
@@ -12,6 +15,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Models\AboutBook;
+use App\Models\AboutCuriosity;
+use App\Models\AboutGalleryPhoto;
 use App\Models\AboutPage;
 use App\Models\KnowledgeItem;
 use App\Models\PersonalProject;
@@ -45,6 +51,9 @@ Route::get('/about', fn () => Inertia::render('About', [
     'about' => AboutPage::first(),
     'experiences' => WorkExperience::orderByDesc('is_current')->orderByDesc('started_at')->get(),
     'terminalProjects' => PersonalProject::where('is_published', true)->latest()->get(),
+    'books' => AboutBook::where('is_published', true)->orderBy('sort_order')->orderBy('title')->get(),
+    'curiosities' => AboutCuriosity::where('is_published', true)->orderBy('sort_order')->orderBy('title')->get(),
+    'galleryPhotos' => AboutGalleryPhoto::where('is_published', true)->orderBy('sort_order')->orderBy('id')->get(),
 ]))->name('about');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
@@ -66,6 +75,18 @@ Route::middleware('auth')->group(function () {
     Route::resource('/admin/work-experiences', WorkExperienceController::class)
         ->only(['store', 'update', 'destroy'])
         ->names('admin.work-experiences');
+    Route::resource('/admin/about-books', AboutBookController::class)
+        ->only(['store', 'update', 'destroy'])
+        ->parameters(['about-books' => 'aboutBook'])
+        ->names('admin.about-books');
+    Route::resource('/admin/about-curiosities', AboutCuriosityController::class)
+        ->only(['store', 'update', 'destroy'])
+        ->parameters(['about-curiosities' => 'aboutCuriosity'])
+        ->names('admin.about-curiosities');
+    Route::resource('/admin/about-gallery-photos', AboutGalleryPhotoController::class)
+        ->only(['store', 'update', 'destroy'])
+        ->parameters(['about-gallery-photos' => 'aboutGalleryPhoto'])
+        ->names('admin.about-gallery-photos');
     Route::resource('/admin/knowledge', KnowledgeItemController::class)
         ->only(['index', 'store', 'update', 'destroy'])
         ->parameters(['knowledge' => 'knowledgeItem'])

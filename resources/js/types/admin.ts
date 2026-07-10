@@ -95,6 +95,32 @@ export interface WorkExperience {
   sort_order: number;
 }
 
+export interface AboutBook {
+  id: number;
+  title: string;
+  author: string;
+  description: string;
+  image_path: string | null;
+  sort_order: number;
+  is_published: boolean;
+}
+
+export interface AboutCuriosity {
+  id: number;
+  title: string;
+  description: string;
+  sort_order: number;
+  is_published: boolean;
+}
+
+export interface AboutGalleryPhoto {
+  id: number;
+  image_path: string;
+  caption: string | null;
+  sort_order: number;
+  is_published: boolean;
+}
+
 export interface KnowledgeItem {
   id: number;
   type: "timeline" | "node";
